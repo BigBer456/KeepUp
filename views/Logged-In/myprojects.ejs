@@ -1,0 +1,265 @@
+<%- include("../partials/mpBoiler.ejs") %>
+
+<%- include("../partials/navbar.ejs") %>
+
+<%- include("../partials/sidebar") %>
+
+<style>
+    /* Custom CSS to override default link styles */
+    a {
+        color: inherit; /* Inherits color from the parent element */
+        text-decoration: none; /* Removes underline */
+    }
+    .error-label {
+      color: red;
+    }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+</style>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        
+                        <img height="70px" width="300px" src="../images/myprojects-logo.png.png" alt="KeepUp logo">
+                    </div>
+                    <strong style="color: black;">(Click on a Project to edit)</strong>
+                    <% if (projectNotFound) { %>
+                      <strong id="projectNotFoundSpan" style="color: red; margin-left: 2rem;">Error Deleting Project</strong>
+                    <% } %>
+                    <% if (incorrectPassword) { %>
+                      <strong id="incorrectPasswordSpan" style="color: red; margin-left: 2rem;">Incorrect Password (Project Not Deleted)</strong>
+                    <% } %>
+
+                    <!-- DataTables -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Project Dashboard</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Contact</th>
+                        <th>Percent Completed</th>
+                        <th>Next Step</th>
+                        <th>Close-out Start Date</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let project of listProjects){ %>
+                    <tr>
+                        <!-- Inside the loop where project details are displayed -->
+                        <td><a href="/Logged-In/editproject?projectName=<%= project.project_name %>"><%= project.project_name %></a></td>
+                        <td><%= project.contractor_email %></td>
+                        <td><%= project.checked_percentage %>%</td>
+                        <td>
+                          <% if (project.first_null_column === 'a1') { %>
+                            Contact Contractor
+                          <% } else if (project.first_null_column === 'a2') { %>
+                            Waiting for Contractor Response
+                          <% } else if (project.first_null_column === 'a3') { %>
+                            Check Contractor Affidavit Format
+                          <% } else if (project.first_null_column === 'b1') { %>
+                            Schedule Final Walkthrough
+                          <% } else if (project.first_null_column === 'b2') { %>
+                            Complete Final Walkthrough
+                          <% } else if (project.first_null_column === 'b3') { %>
+                            Upload Walkthrough 
+                          <% } else if (project.first_null_column === 'c1') { %>
+                            Perform Testing
+                          <% } else if (project.first_null_column === 'c2') { %>
+                            Perform Testing
+                          <% } else if (project.first_null_column === 'c3') { %>
+                            Upload Testing Results 
+                          <% } else if (project.first_null_column === 'd1') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd2') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd3') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd4') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd5') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd6') { %>
+                            Pending remaining DDS
+                          <% } else if (project.first_null_column === 'd7') { %>
+                            Waiting for DDS Internal Review
+                          <% } else if (project.first_null_column === 'e1') { %>
+                            Submit DDS to City
+                          <% } else if (project.first_null_column === 'e2') { %>
+                            Pending City Approval
+                          <% } else if (project.first_null_column === 'e3') { %>
+                            Upload DDS Approval Letter
+                          <% } else if (project.first_null_column === 'f1') { %>
+                            Sign and Noterized Affidavit
+                          <% } else if (project.first_null_column === 'f2') { %>
+                            Send signed affidavit to City
+                          <% } else { %>
+                            PROJECT COMPLETE
+                          <% } %>
+                        </td>
+                        <td><%= project.cosd %></td>
+                        <td><%= project.edit_timestamp %></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "order": [[4, "desc"]] // Sort by Close-out Start Date column (index 4) in descending order
+        });
+    });
+</script>
+
+
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<%- include("../partials/footer.ejs") %>
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<a class="btn btn-primary" href="../welcome">Logout</a>
+</div>
+</div>
+</div>
+</div>
+
+<!--JS for Sidebar Logo-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarOpenImage = document.getElementById("sidebarOpenImage");
+    const sidebarCollapsedImage = document.getElementById("sidebarCollapsedImage");
+
+    // Add event listener to the sidebar toggle button
+    sidebarToggle.addEventListener("click", function() {
+        // Check if the sidebar is collapsed
+        const sidebarCollapsed = document.body.classList.contains("sidebar-toggled");
+
+        // Toggle visibility of logos based on sidebar state
+        if (sidebarCollapsed) {
+            // Sidebar is collapsed, hide sidebarOpenImage and show sidebarCollapsedImage
+            sidebarOpenImage.style.display = "none";
+            sidebarCollapsedImage.style.display = "block";
+        } else {
+            // Sidebar is expanded, hide sidebarCollapsedImage and show sidebarOpenImage
+            sidebarOpenImage.style.display = "block";
+            sidebarCollapsedImage.style.display = "none";
+        }
+    });
+});
+</script>
+
+<!--Sidebar responsive-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const responsiveContent = document.getElementById("responsive-content");
+    
+        sidebarToggle.addEventListener("click", function() {
+            document.body.classList.toggle("sidebar-collapsed");
+        });
+    });
+    </script>
+
+<!--JS for Login Erros-->
+<script>
+  // Function to hide the span after 5 seconds with fade-out animation
+  function hideSpanWithFade(spanId) {
+    var span = document.getElementById(spanId);
+    if (span) {
+      setTimeout(function() {
+        span.classList.add('fade-out'); // Add the fade-out class
+        setTimeout(function() {
+          span.style.display = 'none'; // Hide the span after the animation completes
+        }, 1000); // Wait for 1 second (equal to the transition duration)
+      }, 5000); // Wait for 5 seconds before starting the animation
+    }
+  }
+
+  // Call the hideSpanWithFade function for each span if it is displayed
+  <% if (projectNotFound) { %> 
+    hideSpanWithFade("projectNotFoundSpan");
+  <% } %> 
+  <% if (incorrectPassword) { %>
+    hideSpanWithFade("incorrectPasswordSpan");
+  <% } %>
+</script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+                   
+
+</body>
+
+</html>

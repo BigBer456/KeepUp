@@ -1,0 +1,800 @@
+<%- include("../partials/mpBoiler.ejs") %>
+
+<%- include("../partials/navbar.ejs") %>
+
+<%- include("../partials/sidebar") %>
+
+<!--Progress Bar Animation CSS-->
+<style>
+    .progress {
+        height: 20px;
+        background-color: lightgray;
+        border: 1px solid black; /* Add a black border */
+        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        overflow: hidden; /* Ensure overflow is hidden to contain the progress bar */
+    }
+
+    .progress-bar {
+        height: 100%;
+        color: white;
+        text-align: center;
+        line-height: 20px; /* Center the text vertically */
+        border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+        transition: width 1s ease; /* Set the transition property for width with a duration of 1 second */
+    }
+
+    .form-check-input {
+        vertical-align: top; /* Align checkboxes to the top */
+        margin-right: 5px; /* Adjust spacing between checkbox and label */
+    }
+
+    .checkbox-text {
+        display: inline-block; /* Ensure the first word is on the same line as the checkbox */
+    }
+
+    .table-bordered {
+        border: 2px solid black; /* Increase border thickness */
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 2px solid black; /* Increase border thickness for table cells */
+    }
+
+    .table-bordered thead th {
+        border-bottom: 2px solid black; /* Add bottom border to table header cells */
+    }
+
+    .checkbox-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+</style>
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <a href="/Logged-In/myprojects"><img height="70px" width="300px" src="../images/myprojects-logo.png.png" alt="KeepUp logo"></a>
+                    </div>
+
+                    <h1><%= projectName %></h1>
+                    
+
+                    <br></br>
+
+                    <!--Progress Bar-->
+                    <div style="display: flex; align-items: center;">
+                        <div class="progress" style="width: 75%; margin-right: 5rem;">
+                            <div class="progress-bar" id="project-progress" role="progressbar" style="width: 0%; background-color: darkblue;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                0%
+                            </div>
+                        </div>
+                    <!--Edit Info/Run By Buttons-->    
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" style="width: 7rem;" data-toggle="modal" data-target="#editUserEmailModal">Edit Run By</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" id="editInfoBtn" data-toggle="modal" data-target="#editProjectModal">Edit Info</button>
+                        </div>
+                    </div>                    
+
+<!--Edit Run By Modal-->
+<div class="modal fade" id="editUserEmailModal" tabindex="-1" aria-labelledby="editUserEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserEmailModalLabel">Edit Project Ownership</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to edit user email -->
+                <form id="editUserEmailForm" action="/updateUserEmail" method="post">
+                    <div class="form-group">
+                        <label for="userEmail">Transfer Project to</label>
+                        <input type="email" class="form-control" id="userEmail" name="userEmail" value="<%= project.user_email %>">
+                        <input type="hidden" name="projectName" id="projectNameInput" value="<%= projectName %>">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="dropdown" style="margin-right: 90px;">
+                    <button class="btn btn-light dropdown-toggle" style="margin-left: 10px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      select colleague
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <% company_users.forEach(function(user) { %>
+                        <li>
+                          <label class="dropdown-item">
+                            <input type="checkbox" class="user-checkbox" value="<%= user.email %>"> <%= user.fname %> <%= user.lname.charAt(0) %>
+                          </label>
+                        </li>
+                      <% }); %>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="editUserEmailForm">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Info Modal -->
+<div class="modal fade" id="editProjectModal" tabindex="-1" role="dialog" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProjectModalLabel">Edit Project Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProjectForm" action="/Logged-In/editproject" method="post">
+                    <div class="form-group">
+                      <label for="projectName">Project Name</label>
+                      <input type="text" class="form-control" id="projectName2" name="updatedProjectName" value="<%= projectName %>" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                      <label for="contractorEmail">Contractor Email</label>
+                      <input type="email" class="form-control" id="contractorEmail" name="updatedContractorEmail" value="<%= project ? project.contractor_email : '' %>" autocomplete="off">
+                    </div>
+                    <!-- Add a hidden input field to pass the original projectName -->
+                    <input type="hidden" name="projectName" value="<%= projectName %>">
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+                    </div>  
+                  </form>                  
+            </div>                     
+        </div>
+    </div>
+</div>
+
+</div>
+                                                    
+                    <br></br>
+
+                    <!--Table-->
+                <form id="editCheckboxForm" action="/Logged-In/editchecks" method="post">  
+                    <input type="hidden" id="projectName" name="projectName" value="<%= projectName %>"> 
+                    <table class="table table-bordered">
+                        <colgroup>
+                            <col style="width: 16.67%;">
+                            <col style="width: 16.67%;">
+                            <col style="width: 16.67%;">
+                            <col style="width: 16.67%;">
+                            <col style="width: 16.67%;">
+                            <col style="width: 16.67%;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Contractor Contact</th>
+                                <th scope="col">Final Walkthrough</th>
+                                <th scope="col">Testing</th>
+                                <th scope="col">DDS</th>
+                                <th scope="col">Submission to City</th>
+                                <th scope="col">Affidavit Submission</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!--Section A-->
+                                <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="a1" name="a1" <%= project.a1 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="a1">
+                                            <span class="checkbox-text">Has the informational email been sent to the contractor?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="a2" name="a2" <%= project.a2 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="a2">
+                                            <span class="checkbox-text">Has the contractor responded?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="a3" name="a3" <%= project.a3 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="a3">
+                                            <span class="checkbox-text">Has the contractor filled out the affidavit correctly?</span>
+                                        </label>
+                                    </div>
+                                </th>
+                                <!--Section B-->                      
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="b1" name="b1" <%= project.b1 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="b1">
+                                            <span class="checkbox-text">Has the final Walkthrough been scheduled?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="b2" name="b2" <%= project.b2 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="b2">
+                                            <span class="checkbox-text">Has the final walkthrough been completed?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="b3" name="b3" <%= project.b3 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="b3">
+                                            <span class="checkbox-text">Has the final walkthrough checklist been posted to sharefile?</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <!--Section C-->
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="c1" name="c1" <%= project.c1 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="c1">
+                                            <span class="checkbox-text">Has mandrel testing been preformed or N/A?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="c2" name="c2" <%= project.c2 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="c2">
+                                            <span class="checkbox-text">Has camera testing been preformed or N/A?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="c3" name="c3" <%= project.c3 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                        <label class="form-check-label" for="c3">
+                                            <span class="checkbox-text">Has all testing results been uploaded to sharefile or N/A?</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <!--Section D-->
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d1" name="d1" <%= project.d1 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d1">
+                                            <span class="checkbox-text">Has the contractor sent DDSS documents?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d2" name="d2" <%= project.d2 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d2">
+                                            <span class="checkbox-text">Has the contractor sent reproducible plans (.pdf)?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d3" name="d3" <%= project.d3 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d3">
+                                            <span class="checkbox-text">Has the contractor sent digital plan data CAD (.dwg)?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d4" name="d4" <%= project.d4 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d4">
+                                            <span class="checkbox-text">Has the contractor sent GIS data (attributes table)?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d5" name="d5" <%= project.d5 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d5">
+                                            <span class="checkbox-text">Has the contractor sent O&M manuals or is N/A?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d6" name="d6" <%= project.d6 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d6">
+                                            <span class="checkbox-text">Has the contractor sent DDS Checklist?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="d7" name="d7" <%= project.d7 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="d7">
+                                            <span class="checkbox-text">Has all documentation been approved by appointed colleague?</span>
+                                        </label>
+                                        <div class="checkbox-overlay" onclick="return false;"></div>
+                                    </div>
+                                </td>
+                                <!--Section E-->                      
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="e1" name="e1" <%= project.e1 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="e1">
+                                            <span class="checkbox-text">Has the email containing all DDSS documents been sent to the City?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="e2" name="e2" <%= project.e2 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="e2">
+                                            <span class="checkbox-text">Has the City approved alldocuments submitted?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="e3" name="e3" <%= project.e3 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="e3">
+                                            <span class="checkbox-text">Has the approval letter been uploaded to sharefile?</span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <!--Section F-->                      
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="f1" name="f1" <%= project.f1 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="f1">
+                                            <span class="checkbox-text">Has the affidavit been signed and noterized?</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-check mt-3">
+                                        <input class="form-check-input" type="checkbox" id="f2" name="f2" <%= project.f2 ? 'checked' : '' %>>
+                                        <label class="form-check-label" for="f2">
+                                            <span class="checkbox-text">Has the signed affidavit been submitted to the city?</span>
+                                        </label>
+                                    </div>
+                                </td>
+                              </tr>
+                        </tbody>
+                    </table>
+                </form> 
+<!--JS for form submit-->
+<script>
+    function logCheckbox(checkbox) {
+        const checkboxName = checkbox.name;
+        const isChecked = checkbox.checked;
+        const projectName = document.getElementById("projectName").value;
+
+        console.log("Checkbox Name:", checkboxName);
+        console.log("Is Checked:", isChecked);
+        console.log("Project Name:", projectName);
+
+        // Construct the data object to send to the server
+        const data = {
+            checkboxName: checkboxName,
+            isChecked: isChecked,
+            projectName: projectName
+        };
+
+        // Make an AJAX request to the server
+        fetch('/Logged-In/editchecks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+</script>
+
+<!--Delete Project Button-->
+<div class="container text-right" style="margin-right: 10px;">
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete Project</button>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDeleteModalLabel">Delete <%= projectName %></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this project?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Password Input Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordModalLabel">Enter Password</h5>
+                <button type="button" class="close" data-dismiss="modal" id="cancelBtn" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/Logged-In/delete" method="POST">
+                <input type="hidden" name="projectNameDelete" value="<%= projectName %>">
+                <div class="modal-body">
+                    <span style="color: red; display: none;" id="PassErr">Please input passoword</span>
+                    <span style="color: red; display: none;" id="wrongPassErr">Incorrect Password</span>
+                    <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Password" autocomplete="off">
+                    <input type="hidden" name="projectName" id="projectNameInput">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitPasswordBtn">Submit</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
+
+<!--JS for Delete Project-->
+<script>
+    // Function to handle confirm delete button click
+document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+    $('#confirmDeleteModal').modal('hide'); // Hide confirmation modal
+    $('#passwordModal').modal('show'); // Show password input modal
+});
+
+//Clear x button
+document.getElementById('cancelBtn').addEventListener('click', function() {
+    // Clear the password input field
+    document.getElementById('passwordInput').value = '';
+    // Hide the error message
+    document.getElementById('PassErr').style.display = 'none';
+});
+
+//password match and error handling
+// Function to handle submit password button click
+document.getElementById('submitPasswordBtn').addEventListener('click', async function(event) {
+    const password = document.getElementById('passwordInput').value;
+    const passErr = document.getElementById('PassErr');
+    const wrongPassErr = document.getElementById('wrongPassErr');
+    
+    if (password === '') {
+        // Show error message if password is empty
+        passErr.style.display = 'block';
+        // Prevent the default action of the submit button
+        event.preventDefault();
+    } else {
+        passErr.style.display = 'none';
+        try {
+            // Check if the user's provided password matches the password in the database
+            const response = await fetch("/Logged-In/checkpassword", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ password: password })
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                // If passwords match, proceed with deleting the project
+                passErr.style.display = 'none';
+                document.getElementById('deleteProjectForm').submit(); // Submit the form to delete the project
+            } else {
+                wrongPassErr.style.display = 'block'; // Display wrong password error message
+                // Prevent the default action of the submit button
+                event.preventDefault();
+            }
+        } catch (error) {
+            console.error("Error checking password:", error);
+        }
+    }
+});
+</script>
+
+<!-- Comment Section -->
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-12">
+            <div class="comment-bottom p-2 px-4" style="background-color: white;">
+                <h3 style="color: #7B7070;"><%= projectName %></h3>
+                <!-- Input for adding a comment -->
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                    <input type="text" class="form-control mr-3" id="commentInput" placeholder="Add comment">
+                    <button class="btn btn-primary" type="button" onclick="addComment()">Comment</button>
+                </div>
+                <!-- Display existing comments -->
+                <div id="commentsContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--JS for Comment Section-->
+<script>
+    // Function to format timestamp into a human-readable format
+    function formatTimestamp(timestamp) {
+    const now = new Date();
+    const diff = now - new Date(timestamp);
+    const minute = 60 * 1000;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    if (diff < minute) {
+        return Math.floor(diff / 1000) + ' seconds ago';
+    } else if (diff < hour) {
+        return Math.floor(diff / minute) + ' minutes ago';
+    } else if (diff < day) {
+        return Math.floor(diff / hour) + ' hours ago';
+    } else {
+        // Format the timestamp as the date in MM/DD/YY format
+        const date = new Date(timestamp);
+        const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear() % 100}`; // MM/DD/YY
+        return formattedDate;
+    }
+}
+
+    // Function to add a comment
+    function addComment() {
+        const commentText = document.getElementById('commentInput').value;
+        // AJAX request to send comment to the server
+        fetch('/save-comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                projectName: '<%= projectName %>',
+                commentText: commentText
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Refresh the comments after adding a new comment
+                loadComments();
+                // Clear the input field
+                document.getElementById('commentInput').value = '';
+            } else {
+                console.error('Failed to add comment');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Function to delete a comment
+    function deleteComment(commentId) {
+        fetch('/delete-comment?id=' + commentId, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Reload comments after deletion
+                loadComments();
+            } else {
+                console.error('Failed to delete comment');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Function to load comments
+    function loadComments() {
+    fetch(`/comments?projectName=<%= projectName %>`)
+    .then(response => response.json())
+    .then(data => {
+        const commentsContainer = document.getElementById('commentsContainer');
+        commentsContainer.innerHTML = ''; // Clear existing comments
+        // Reverse the order of comments to display the most recent one first
+        data.comments.reverse().forEach(comment => {
+            // Format the timestamp
+            const formattedTimestamp = formatTimestamp(comment.comment_timestamp);
+            // Check if the current user is the one who posted the comment
+            const isCurrentUser = comment.user_id === Number('<%= userId %>'); // Using Number
+            // Create the delete button SVG only if the current user is the one who posted the comment
+            const deleteButtonSVG = isCurrentUser ? `
+                <span class="ml-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x delete-comment-svg" onclick="deleteComment('${comment.comment_id}')" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </span>` : '';
+            // Create HTML for each comment and append it to the container
+            const commentHTML = `
+                <div class="commented-section mt-2">
+                    <hr>
+                    <div class="d-flex flex-row align-items-center commented-user">
+                        <h5 class="mr-2">${comment.user_name}</h5>
+                        <span class="dot mb-1"></span>
+                        <span class="mb-1 ml-2">${formattedTimestamp}</span>
+                        ${deleteButtonSVG}
+                    </div>
+                    <div class="comment-text-sm">
+                        <span>${comment.comment_text}</span>
+                    </div>
+                </div>`;
+            commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+    // Load comments when the page is loaded
+    window.addEventListener('load', loadComments);
+</script>
+
+<!--Select Colleague-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Get the input element
+  const userEmailInput = document.getElementById("userEmail");
+
+  // Get all checkboxes with class "user-checkbox"
+  const checkboxes = document.querySelectorAll(".user-checkbox");
+
+  // Add event listener to each checkbox
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      // Uncheck all other checkboxes
+      checkboxes.forEach(function(otherCheckbox) {
+        if (otherCheckbox !== checkbox) {
+          otherCheckbox.checked = false;
+        }
+      });
+
+      // Set the value of the input to the checked checkbox's value
+      if (this.checked) {
+        userEmailInput.value = this.value;
+      } else {
+        // If checkbox is unchecked, clear the input
+        userEmailInput.value = "";
+      }
+    });
+  });
+});
+</script>
+
+
+
+
+
+
+</div>
+<!-- /.container-fluid -->
+
+
+<!-- End of Main Content -->
+
+<%- include("../partials/footer.ejs") %>
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="../welcome">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--JS for Sidebar Logo-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarOpenImage = document.getElementById("sidebarOpenImage");
+    const sidebarCollapsedImage = document.getElementById("sidebarCollapsedImage");
+
+    // Add event listener to the sidebar toggle button
+    sidebarToggle.addEventListener("click", function() {
+        // Check if the sidebar is collapsed
+        const sidebarCollapsed = document.body.classList.contains("sidebar-toggled");
+
+        // Toggle visibility of logos based on sidebar state
+        if (sidebarCollapsed) {
+            // Sidebar is collapsed, hide sidebarOpenImage and show sidebarCollapsedImage
+            sidebarOpenImage.style.display = "none";
+            sidebarCollapsedImage.style.display = "block";
+        } else {
+            // Sidebar is expanded, hide sidebarCollapsedImage and show sidebarOpenImage
+            sidebarOpenImage.style.display = "block";
+            sidebarCollapsedImage.style.display = "none";
+        }
+    });
+});
+</script>
+
+<!--Edit Page JS-->
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "order": [[4, "desc"]] // Sort by Close-out Start Date column (index 4) in descending order
+        });
+    });
+</script>
+
+<!--Sidebar responsive-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const responsiveContent = document.getElementById("responsive-content");
+    
+        sidebarToggle.addEventListener("click", function() {
+            document.body.classList.toggle("sidebar-collapsed");
+        });
+    });
+</script>
+
+<!--Progress Bar Animation JS-->
+<script>
+// Get all checkboxes
+const checkboxes = document.querySelectorAll('.form-check-input');
+
+// Update progress bar when a checkbox is clicked
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateProgressBar);
+});
+
+// Update progress bar initially
+updateProgressBar();
+
+function updateProgressBar() {
+    // Count the number of checked checkboxes
+    const checkedCount = document.querySelectorAll('.form-check-input:checked').length;
+    
+    // Calculate the percentage
+    const totalCheckboxes = checkboxes.length;
+    const percentage = (checkedCount / totalCheckboxes) * 100;
+
+    // Update the progress bar width and text
+    const progressBar = document.getElementById('project-progress');
+    progressBar.style.width = percentage + '%';
+    progressBar.setAttribute('aria-valuenow', percentage);
+    progressBar.textContent = Math.round(percentage) + '%';
+}
+</script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+                   
+</body>
+</html>

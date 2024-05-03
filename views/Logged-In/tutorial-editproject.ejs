@@ -1,0 +1,208 @@
+<%- include("../partials/hBoiler.ejs") %>
+
+<%- include("../partials/navbar.ejs") %>
+
+<%- include("../partials/sidebar", { currentPage: "help" }) %>
+
+<style>
+    p {
+        color: black;
+    }
+</style>
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                
+                <img height="80px" width="300px" src="../images/tutorials-logo.png" alt="KeepUp logo">
+            </div>
+        
+            <h2><strong style="color: black;">How to edit a Project</strong></h2>
+
+            <hr></hr>
+
+            <!--Step 1-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Step 1</h4>
+                <img src="../images/step1ep.png" style="height: 70px; width: 150px;" alt="Step one image">
+                <p style="margin-top: 2rem;">-First, click on the "My Projects" icon located on the sidebar.</p>
+                <p>-You will only be able to edit the projects that you are running.</p>  
+            </div>
+            
+            <br></br>
+
+            <!--Step 2-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Step 2</h4>
+                <img src="../images/step2ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-From the My Projects page, click the project name that you want to edit.</p> 
+            </div>
+
+            <br></br>
+
+            <!--Step 3-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Step 3</h4>
+                <img src="../images/step3ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-This is the page you will be able to edit many aspects of the project that was selected.</p>
+                <p>-On this page, you will be able to see all items that are completed and need to be completed for this project.</p>
+                <p>-You can click any of the check boxes if that task has been completed and the percentage complete will automatically adjust.</p>
+                <p>The changes you make to the task will be automatically be saved.</p> 
+            </div>
+            
+            <br></br>
+
+            <!--Step 4-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Transfer Project</h4>
+                <img src="../images/step4ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-If you click the "Edit Run By" button as seen in the last step, you will be asked if you would like to transfer the project.</p>
+                <p>Here, you can type your colleagues email or select them from the "select colleagues" button.</p>
+                <p>-Once you select a colleague and click "Save Changes", the project will now no longer be ran by yourself and will be removed from your "My Projects" list.</p> 
+                <p>A comment will be attached to the project showing who the project was transfered to and from.</p>  
+            </div>
+            
+            <br></br>
+
+            <!--Step 5-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Edit Project Info</h4>
+                <img src="../images/step5ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-If you select the "Edit Info" button as seen in step 3, you will be shown the project's name and the main contact's email</p>
+                <p>-Here, you can edit the information assotiated with this project.</p>
+                <p>-Once you have completed your changes, click the "Save Changes" button and the new information will be saved for this project.</p>     
+            </div>
+            
+            <br></br>
+
+            <!--Step 6-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Delete Project</h4>
+                <img src="../images/step6ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-If you wish to delete a project, click the "Delete" button located on the bottom right of the tasks table.</p>
+                <p>-Once clicked, you will be asked if you are sure you want to delete the project.</p>
+                <p>-If you click yes, you will be asked to input your password.</p>    
+                <p>-If your password is correct, the project will be deleted and you will be redirected to your "My Projects" page.</p>
+            </div>
+            
+            <br></br>
+
+            <!--Step 7-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Comments</h4>
+                <img src="../images/step7ep.png" style="height: 300px;" alt="Step two image">
+                <p style="margin-top: 2rem;">-At the bottom of each project, you will be able to add a comment to your project.</p>
+                <p>-In the comment bar, type your comment and click the "Comment" button to upload your comment which will be saved to this project.</p>
+                <p>-If you wish to delete your comment, you can click the "x" located on the right side of your comment.</p>    
+                <p>-Other users can comment on your project if they select your project in the "Active Projects" tab located on the sidebar.</p>
+            </div>
+         
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<%- include("../partials/footer.ejs") %>
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<a class="btn btn-primary" href="/welcome">Logout</a>
+</div>
+</div>
+</div>
+</div>
+
+<!--JS for Sidebar Logo-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const sidebarToggle = document.getElementById("sidebarToggle");
+const sidebarOpenImage = document.getElementById("sidebarOpenImage");
+const sidebarCollapsedImage = document.getElementById("sidebarCollapsedImage");
+
+// Add event listener to the sidebar toggle button
+sidebarToggle.addEventListener("click", function() {
+// Check if the sidebar is collapsed
+const sidebarCollapsed = document.body.classList.contains("sidebar-toggled");
+
+// Toggle visibility of logos based on sidebar state
+if (sidebarCollapsed) {
+    // Sidebar is collapsed, hide sidebarOpenImage and show sidebarCollapsedImage
+    sidebarOpenImage.style.display = "none";
+    sidebarCollapsedImage.style.display = "block";
+} else {
+    // Sidebar is expanded, hide sidebarCollapsedImage and show sidebarOpenImage
+    sidebarOpenImage.style.display = "block";
+    sidebarCollapsedImage.style.display = "none";
+}
+});
+});
+</script>
+
+<!--Sidebar responsive-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const sidebarToggle = document.getElementById("sidebarToggle");
+const responsiveContent = document.getElementById("responsive-content");
+
+sidebarToggle.addEventListener("click", function() {
+    document.body.classList.toggle("sidebar-collapsed");
+});
+});
+</script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+           
+
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<%- include("../partials/hBoiler.ejs") %>
+
+<%- include("../partials/navbar.ejs") %>
+
+<%- include("../partials/sidebar", { currentPage: "help" }) %>
+
+<style>
+    p {
+        color: black;
+    }
+</style>
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                
+                <img height="80px" width="300px" src="../images/tutorials-logo.png" alt="KeepUp logo">
+            </div>
+        
+            <h2><strong style="color: black;">FAQs</strong></h2>
+
+            <hr></hr>
+
+            <!--Step 1-->
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>What does each "Next Step" mean?</h4>
+                <hr></hr>
+                <p style="margin-top: 2rem;"><strong>Contact Contractor: </strong>The initial email to the main contact for the contractor needs to be completed. In this you will email the contractor letting them know you are interested in beginning the close-out process for this project.</p>
+                <p style="margin-top: 2rem;"><strong>Waiting for Contractor Response: </strong>The initial contact email has been sent and you are waiting for a response from the contractor.</p>  
+                <p style="margin-top: 2rem;"><strong>Check Contractor Affidavit Format: </strong>The contractor has responded, but you will need to ensure that they have filled out the affidavit correctly.</p>
+                <p style="margin-top: 2rem;"><strong>Schedule Final Walkthrough: </strong>The final walkthrough needs to be scheduled with the contractor.</p>
+                <p style="margin-top: 2rem;"><strong>Complete Final Walkthrough: </strong>The final walkthrough has been scheduled and you are waiting to complete it on the scheduled time.</p>
+                <p style="margin-top: 2rem;"><strong>Upload Walkthrough: </strong>The final walkthrough has been completed and the report needs to be uploaded to your company's files.</p>
+                <p style="margin-top: 2rem;"><strong>Perform Testing: </strong>If all testing will need to be scheduled and completed.</p>
+                <p style="margin-top: 2rem;"><strong>Upload Testing Results: </strong>All test results and reports need to be uploaded to your company's files.</p>
+                <p style="margin-top: 2rem;"><strong>Pending remaining DDS: </strong>You are waiting for the contractor to send all DDSS documentation.</p>
+                <p style="margin-top: 2rem;"><strong>Waiting for DDS Internal Review: </strong>All DDSS documents have been sent from the contractor, but your appointed colleague needs to review and approve all of the documentation.</p>
+                <p style="margin-top: 2rem;"><strong>Submit DDS to City: </strong>All DDSS documents have been approved and need to be emailed to the City for approval.</p>
+                <p style="margin-top: 2rem;"><strong>Pending City Approval: </strong>The DDSS documents have been sent to the city and you are waiting for the City to respond.</p>
+                <p style="margin-top: 2rem;"><strong>Upload DDS Approval Letter: </strong>The City has responded and approved your DDSS submission. Upload the approval letter that was sent to your company's files.</p>
+                <p style="margin-top: 2rem;"><strong>Sign and Noterized Affidavit: </strong>The project manager will need to sign and noterize the affidavit.</p>
+                <p style="margin-top: 2rem;"><strong>Send signed affidavit to City: </strong>The signed affidavit will need to be sent to the City to be recorded.</p>
+                <p style="margin-top: 2rem;"><strong>PROJECT COMPLETE: </strong>All items have been completed and this project is offically close-out.</p>
+            </div>
+
+            <br></br>
+
+            <div style="background-color: #e3e4eb; padding: 1rem;">
+                <h4>Why can't I check the last checkbox in the DDSS section?</h4>
+                <hr></hr>
+                <p>-Only an appointed "Reviewer" can edit this checkbox.</p>
+                <p>-The Reviewer can edit this by going to the "Review Check" tab located on the side bar.</p>
+                <p>-From there, the reviewer can select a project and click "yes" saying they approve all DDSS documentation and then inputting their password to confrim the approval.</p>
+            </div>
+
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<%- include("../partials/footer.ejs") %>
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<a class="btn btn-primary" href="/welcome">Logout</a>
+</div>
+</div>
+</div>
+</div>
+
+<!--JS for Sidebar Logo-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const sidebarToggle = document.getElementById("sidebarToggle");
+const sidebarOpenImage = document.getElementById("sidebarOpenImage");
+const sidebarCollapsedImage = document.getElementById("sidebarCollapsedImage");
+
+// Add event listener to the sidebar toggle button
+sidebarToggle.addEventListener("click", function() {
+// Check if the sidebar is collapsed
+const sidebarCollapsed = document.body.classList.contains("sidebar-toggled");
+
+// Toggle visibility of logos based on sidebar state
+if (sidebarCollapsed) {
+    // Sidebar is collapsed, hide sidebarOpenImage and show sidebarCollapsedImage
+    sidebarOpenImage.style.display = "none";
+    sidebarCollapsedImage.style.display = "block";
+} else {
+    // Sidebar is expanded, hide sidebarCollapsedImage and show sidebarOpenImage
+    sidebarOpenImage.style.display = "block";
+    sidebarCollapsedImage.style.display = "none";
+}
+});
+});
+</script>
+
+<!--Sidebar responsive-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const sidebarToggle = document.getElementById("sidebarToggle");
+const responsiveContent = document.getElementById("responsive-content");
+
+sidebarToggle.addEventListener("click", function() {
+    document.body.classList.toggle("sidebar-collapsed");
+});
+});
+</script>
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+           
+
+</body>
+
+</html>

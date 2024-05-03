@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>KeepUp Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    
+        <!-- Custom styles for this page -->
+        <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow fixed-top">
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <!-- <li class="nav-item dropdown no-arrow d-sm-none">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-search fa-fw"></i>
+                </a> -->
+                <!-- Dropdown - Messages -->
+                <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                    aria-labelledby="searchDropdown">
+                    <form class="form-inline mr-auto w-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small"
+                                placeholder="Search for..." aria-label="Search"
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li> -->
+
+            <!-- Nav Item - Alerts -->
+            <!-- <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i> -->
+                    <!-- Counter - Alerts -->
+                    <!-- <span class="badge badge-danger badge-counter">3+</span>
+                </a> -->
+                <!-- Dropdown - Alerts -->
+                <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">
+                        Alerts Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-primary">
+                                <i class="fas fa-file-alt text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 12, 2019</div>
+                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-success">
+                                <i class="fas fa-donate text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 7, 2019</div>
+                            $290.29 has been deposited into your account!
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-warning">
+                                <i class="fas fa-exclamation-triangle text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">December 2, 2019</div>
+                            Spending Alert: We've noticed unusually high spending for your account.
+                        </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                </div>
+            </li> -->
+
+            <!-- Nav Item - Messages -->
+            <!-- <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-envelope fa-fw"></i> -->
+                    <!-- Counter - Messages -->
+                    <!-- <span class="badge badge-danger badge-counter">7</span>
+                </a> -->
+                <!-- Dropdown - Messages -->
+                <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header">
+                        Message Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="../img/undraw_profile_1.svg"
+                                alt="...">
+                            <div class="status-indicator bg-success"></div>
+                        </div>
+                        <div class="font-weight-bold">
+                            <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                                problem I've been having.</div>
+                            <div class="small text-gray-500">Emily Fowler · 58m</div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="../img/undraw_profile_2.svg"
+                                alt="...">
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div>
+                            <div class="text-truncate">I have the photos that you ordered last month, how
+                                would you like them sent to you?</div>
+                            <div class="small text-gray-500">Jae Chun · 1d</div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="../img/undraw_profile_3.svg"
+                                alt="...">
+                            <div class="status-indicator bg-warning"></div>
+                        </div>
+                        <div>
+                            <div class="text-truncate">Last month's report looks great, I am very happy with
+                                the progress so far, keep up the good work!</div>
+                            <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                alt="...">
+                            <div class="status-indicator bg-success"></div>
+                        </div>
+                        <div>
+                            <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                                told me that people say this to all dogs, even if they aren't good...</div>
+                            <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                        </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                </div>
+            </li> -->
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    </svg>
+                    <span style="margin-left: 8px;" class="mr-2 d-none d-lg-inline text-gray-700 small">User</span>
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Settings
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Activity Log
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+
+    </nav>
+    <!-- End of Topbar -->
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid" id="content">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            
+            <img height="70px" width="300px" src="../images/addprojects-logo.png.png" alt="KeepUp logo">
+        </div>
+
+   <!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion fixed-top" id="accordionSidebar" >
+
+<!-- Sidebar - Brand -->
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Logged-In/dashboard">
+  <!-- Image for when the sidebar is open -->
+  <img src="../images/logo_white_nb2.png.png" id="sidebarOpenImage" style="display: block;" height="50px" alt="">
+  <!-- Image for when the sidebar is collapsed -->
+  <img src="../images/logo_arrow.png.png" id="sidebarCollapsedImage" style="display: none;" height="30px" alt="">
+</a>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="/Logged-In/dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Projects
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+              <a class="nav-link" href="/Logged-In/myprojects">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layers" viewBox="0 0 16 16">
+                    <path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882zm3.515 7.008L14.438 10 8 13.433 1.562 10 4.25 8.567l3.515 1.874a.5.5 0 0 0 .47 0zM8 9.433 1.562 6 8 2.567 14.438 6z"/>
+                  </svg>
+                  <span style="margin-left: 7px;">My Projects</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/Logged-In/addproject">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+                  <span style="margin-left: 7px;">Add Project</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Logged-In/activeprojects">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+                  <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
+                </svg>
+                  <span style="margin-left: 7px;">Active Projects</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                User
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item <%= currentPage === 'review' ? 'active' : '' %>">
+                <% if (userData.role === 'Reviewer') { %>
+                    <a class="nav-link" href="/Logged-In/review">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                        <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                      </svg>
+                      <span style="margin-left: 7px;">Review Check</span>
+                    </a>
+                <% } %>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/Logged-In/settings">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                  </svg>
+                  <span style="margin-left: 7px;">Settings</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
+                      <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                      <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                    </svg>
+                    <span style="margin-left: 7px;">Help</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Tutorials</h6>
+                        <a class="collapse-item" href="/Logged-In/tutorial-addproject">Add a project tutorial</a>
+                        <a class="collapse-item" href="/Logged-In/tutorial-editproject">Edit a project tutorial</a>
+                        <a class="collapse-item" href="/Logged-In/tutorial-faq">FAQs</a>
+                        <div class="collapse-divider"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"/>
+                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"/>
+                  </svg>
+                  <span style="margin-left: 7px;">Sign Out</span></a>
+            </li>
+        
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                
+
+<!-- Form -->
+<div class="container">
+    
+    <p class="lead col-8 mt-4">Please fill out the fields below to add a new project to the list. If a field does not apply, please leave it blank. If you need further assitance, please reference the Add a project tutorial in the help tab. </p>
+  </div>
+
+    <div class="col-8">
+      <h4 class="mb-3">Contact Info</h4>
+      <form class="needs-validation container" id="myForm" action="/addproject" method="POST">
+        <div class="">
+          <div class="mb-4">
+              <label for="pName" class="form-label">Project Name <span id="pNameErr" style="color: red; display: none;">Please fill out this field</span></label>
+              <input type="text" class="form-control" id="pName" name="project_name">
+            </div>
+
+          <div class="mb-4">
+            <label for="email" class="form-label">Email <span id="emailErr" style="color: red; display: none;">Please give valid email</span></label>
+            <input type="email" class="form-control" id="email" placeholder="contractor@example.com" name="contractor_email">
+            <div class="invalid-feedback">
+              Please enter a valid email address for your contact.
+            </div>
+          </div>
+
+          <div class="">
+              <label for="COSD" class="form-label">Close-out Start Date <span id="COSDErr" style="color: red; display: none;">Please input date in correct format (MM/DD/YY)</span></label>
+              <input type="COSD" class="form-control" id="COSD" placeholder="(MM/DD/YY)" name="cosd">
+            </div>
+
+        <hr class="my-4">
+
+        <!--Contractor Contact (A)-->
+<h5>Contractor Contact</h5>
+
+<div class="form-checkA" id="checklist-item-1">
+  <input type="checkbox" class="form-check-input" id="checklist-1" name="a1">
+  <label class="form-check-label" for="checklist-1">Has the informational email been sent to the contractor?</label>
+</div>
+
+<div class="form-checkA" id="checklist-item-2" style="display: none;">
+  <input type="checkbox" class="form-check-input" id="checklist-2" name="a2">
+  <label class="form-check-label" for="checklist-2">Has the contractor responded?</label>
+</div>
+
+<div class="form-checkA" id="checklist-item-3" style="display: none;">
+  <input type="checkbox" class="form-check-input" id="checklist-3" name="a3">
+  <label class="form-check-label" for="checklist-3">Has the contractor filled out the affidavit correctly?</label>
+</div>
+
+      
+      <hr class="my-4">
+
+      <!--Final Walkthrough (B)-->
+
+      <h5>Final Walkthrough</h5>
+
+      <div class="form-checkB" id="checklist-item-1">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="b1">
+          <label class="form-check-label" for="checklist-1">Has the final Walkthrough been scheduled?</label>
+      </div>
+
+      <div class="form-checkB" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="b2">
+          <label class="form-check-label" for="checklist-2">Has the final walkthrough been completed?</label>
+      </div>
+
+      <div class="form-checkB" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="b3">
+          <label class="form-check-label" for="checklist-2">Has the final walkthrough checklist been posted to sharefile?</label>
+      </div>
+
+      <hr class="my-4">
+
+      <!--Testing (C)-->
+
+      <h5>Testing</h5>
+
+      <div class="form-checkC" id="checklist-item-1">
+          <input type="checkbox" class="form-check-input" id="ca">
+          <label class="form-check-label" for="checklist-1">Is testing needed for this close-out?</label>
+      </div>
+
+      <div class="form-checkC" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="c1" name="c1">
+          <label class="form-check-label" for="checklist-2">Has mandrel testing been preformed or is N/A</label>
+      </div>
+
+      <div class="form-checkC" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="c2" name="c2">
+          <label class="form-check-label" for="checklist-2">Has camera testing been preformed or is N/A</label>
+      </div>
+      <div class="form-checkC" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="c3" name="c3">
+          <label class="form-check-label" for="checklist-2">Has all testing results been uploaded to sharefile</label>
+      </div>
+
+      <hr class="my-4">
+
+      <!--DDS (D)-->
+
+      <h5>DDS</h5>
+
+      <div class="form-checkD" id="checklist-item-1">
+          <input type="checkbox" class="form-check-input" id="checklist-1" name="d1">
+          <label class="form-check-label" for="checklist-1">Has the contractor sent DDSS documents?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d2">
+          <label class="form-check-label" for="checklist-2">Has the contractor sent reproducible plans (.pdf)?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d3">
+          <label class="form-check-label" for="checklist-2">Has the contractor sent digital plan data CAD (.dwg)?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d4">
+          <label class="form-check-label" for="checklist-2">Has the contractor sent GIS data (attributes table)?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d5">
+          <label class="form-check-label" for="checklist-2">Has the contractor sent O&M manuals or is N/A?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d6">
+          <label class="form-check-label" for="checklist-2">Has the contractor sent DDS Checklist?</label>
+      </div>
+
+      <div class="form-checkD" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="d7">
+          <label class="form-check-label" for="checklist-2">Has all documentation been approved by appointed colleague?</label>
+      </div>
+
+      <hr class="my-4">
+
+      <!--Submitting to City (E)-->
+
+      <h5>Submission to City</h5>
+
+      <div class="form-checkE" id="checklist-item-1">
+          <input type="checkbox" class="form-check-input" id="checklist-1" name="e1">
+          <label class="form-check-label" for="checklist-1">Has the email containing all DDSS documents been sent to the City?</label>
+      </div>
+
+      <div class="form-checkE" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="e2">
+          <label class="form-check-label" for="checklist-2">Has the City approved alldocuments submitted?</label>
+      </div>
+
+      <div class="form-checkE" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="e3">
+          <label class="form-check-label" for="checklist-2">Has the approval letter been uploaded to sharefile?</label>
+      </div>
+
+      <hr class="my-4">
+
+      <!--Affidavit Submission (F)-->
+
+      <h5>Affidavit Submission</h5>
+
+      <div class="form-checkF" id="checklist-item-1">
+          <input type="checkbox" class="form-check-input" id="checklist-1" name="f1">
+          <label class="form-check-label" for="checklist-1">Has the affidavit been signed and noterized?</label>
+      </div>
+
+      <div class="form-checkF" id="checklist-item-2" style="display: none;">
+          <input type="checkbox" class="form-check-input" id="checklist-2" name="f2">
+          <label class="form-check-label" for="checklist-2">Has the signed affidavit been submitted to the city?</label>
+      </div>
+      
+      <!-- Add more checklist items following the same pattern -->
+
+        <!--Contact Contractor JS (A)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkA input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkA').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkA').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <!--Final Walkthrough JS  (B)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkB input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkB').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkB').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <!--Testing JS (C)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkC input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkC').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkC').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <!--DDS JS (D)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkD input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkD').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkD').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <!--Submission to City JS (E)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkE input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkE').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkE').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <!--Affidavit Submission JS (F)-->
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+      // Get references to all checkboxes
+      const checkboxes = document.querySelectorAll('.form-checkF input[type="checkbox"]');
+
+      // Add event listener to the first checkbox
+      checkboxes[0].addEventListener('change', function() {
+          // Check if the first checkbox is checked
+          if (this.checked) {
+          // If checked, show all remaining checkboxes
+          for (let i = 1; i < checkboxes.length; i++) {
+              checkboxes[i].closest('.form-checkF').style.display = 'block';
+          }
+          } else {
+          // If unchecked, hide all remaining checkboxes
+              for (let i = 1; i < checkboxes.length; i++) {
+                  checkboxes[i].closest('.form-checkF').style.display = 'none';
+                  }
+              }
+          });
+      });
+        </script>
+
+        <hr class="my-4">
+
+        
+  <button id="submitButton" class="w-100 btn btn-primary btn-lg" type="submit">Add Project</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+<br>
+<!-- Footer -->
+<footer>
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; KeepUp 2024</span>
+        </div>
+    </div>
+</footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<a class="btn btn-primary" href="../welcome">Logout</a>
+</div>
+</div>
+</div>
+</div>
+
+<!--JS for Sidebar Logo-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const sidebarOpenImage = document.getElementById("sidebarOpenImage");
+    const sidebarCollapsedImage = document.getElementById("sidebarCollapsedImage");
+
+    // Add event listener to the sidebar toggle button
+    sidebarToggle.addEventListener("click", function() {
+        // Check if the sidebar is collapsed
+        const sidebarCollapsed = document.body.classList.contains("sidebar-toggled");
+
+        // Toggle visibility of logos based on sidebar state
+        if (sidebarCollapsed) {
+            // Sidebar is collapsed, hide sidebarOpenImage and show sidebarCollapsedImage
+            sidebarOpenImage.style.display = "none";
+            sidebarCollapsedImage.style.display = "block";
+        } else {
+            // Sidebar is expanded, hide sidebarCollapsedImage and show sidebarOpenImage
+            sidebarOpenImage.style.display = "block";
+            sidebarCollapsedImage.style.display = "none";
+        }
+    });
+});
+</script>
+
+<!--Sidebar responsive-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const responsiveContent = document.getElementById("responsive-content");
+
+    sidebarToggle.addEventListener("click", function() {
+        document.body.classList.toggle("sidebar-collapsed");
+    });
+});
+</script>
+
+<!--Err Message JS-->
+<script>
+
+// Email validation function
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Date format validation function
+function validateDateFormat(date) {
+    const dateFormatRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{2}$/;
+    return dateFormatRegex.test(date);
+}
+
+    document.getElementById('submitButton').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default button behavior
+
+    //Conditions
+    const pNameValue = document.getElementById('pName').value.trim();
+    const emailValue = document.getElementById('email').value.trim();
+    const COSDValue = document.getElementById('COSD').value.trim();
+
+    // Check if all conditions are met
+    if (pNameValue === ''){
+      document.getElementById('pNameErr').style.display = 'block';
+    } else {
+      document.getElementById('pNameErr').style.display = 'none';
+    }
+    if (!validateEmail(emailValue)){
+      document.getElementById('emailErr').style.display = 'block'
+    } else {
+      document.getElementById('emailErr').style.display = 'none';
+    }
+    if (!validateDateFormat(COSDValue)){
+        document.getElementById('COSDErr').style.display = 'block';
+    } else {
+        document.getElementById('COSDErr').style.display = 'none';
+    }
+    
+    if (pNameValue !== '' && emailValue !== '' && validateDateFormat(COSDValue)) {
+        // Condition is met, so submit the form
+        document.getElementById('myForm').submit();
+    } else {
+        alert("Please fill out Contact Info");
+    }
+});
+
+//Section C Autofill JS
+document.addEventListener("DOMContentLoaded", function() {
+    // Get references to the checkboxes
+    const checklistItem1 = document.getElementById('ca');
+    const checklistItem2 = document.getElementById('c1');
+    const checklistItem3 = document.getElementById('c2');
+    const checklistItem4 = document.getElementById('c3');
+
+    // Update the checkboxes based on the initial state of 'ca'
+    updateCheckboxes(checklistItem1);
+
+    // Add event listener to checklist_item_1C checkbox
+    checklistItem1.addEventListener('change', function() {
+        updateCheckboxes(this);
+    });
+
+    // Function to update checkboxes based on the state of 'ca'
+    function updateCheckboxes(checkbox) {
+        if (!checkbox.checked) {
+            // If 'ca' is unchecked, check 'c1', 'c2', and 'c3'
+            checklistItem2.checked = true;
+            checklistItem3.checked = true;
+            checklistItem4.checked = true;
+        } else {
+            // If 'ca' is checked, uncheck 'c1', 'c2', and 'c3'
+            checklistItem2.checked = false;
+            checklistItem3.checked = false;
+            checklistItem4.checked = false;
+        }
+    }
+});
+
+
+
+
+  </script>
+
+<!--Auto Contact JS-->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const submitButton = document.getElementById('submitButton');
+  const checkbox = document.getElementById('checklist-1');
+
+  submitButton.addEventListener('click', function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Conditions from Err Message JS
+    const pNameValue = document.getElementById('pName').value.trim();
+    const emailValue = document.getElementById('email').value.trim();
+    const COSDValue = document.getElementById('COSD').value.trim();
+
+    // Check if all conditions are met
+    if (pNameValue !== '' && validateEmail(emailValue) && validateDateFormat(COSDValue)) {
+      // All conditions met, proceed with Auto Contact JS logic
+      if (!checkbox.checked) {
+        // Show a confirmation dialog
+        const confirmed = confirm("Is this a new close-out? Would you like an automated email for the initial contact to be sent to the contractor?");
+
+        // If the user confirms, redirect to contactemail page
+        if (confirmed) {
+          // Set the 'confirmed' parameter to true
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'confirmed';
+          input.value = 'true';
+          submitButton.closest('form').appendChild(input);
+
+          // Submit the form
+          submitButton.closest('form').submit();
+        } else {
+          // If the user cancels, allow the form submission
+          submitButton.closest('form').submit();
+        }
+      } else {
+        // If the checkbox is checked, allow the form submission
+        submitButton.closest('form').submit();
+      }
+    }
+  });
+});
+</script>
+ 
+
+<!-- Bootstrap core JavaScript-->
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../js/demo/datatables-demo.js"></script>
+                   
+
+</body>
+
+</html>

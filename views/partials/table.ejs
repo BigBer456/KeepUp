@@ -1,0 +1,82 @@
+<!-- DataTables -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Project Dashboard</h6>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Project</th>
+                    <th>Contact</th>
+                    <th>Percent Completed</th>
+                    <th>Next Step</th>
+                    <th>Close-out Start Date</th>
+                    <th>Last Updated</th>
+                    <th>Running By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(let project of listProjects){%>
+                <tr>
+                    <td><%= project.project_name %></td>
+                    <td><%= project.contractor_email %></td>
+                    <td><%= project.checked_percentage %>%</td>
+                    <td>
+                        <% if (project.first_null_column === 'a1') { %>
+                          Contact Contractor
+                        <% } else if (project.first_null_column === 'a2') { %>
+                          Waiting for Contractor Response
+                        <% } else if (project.first_null_column === 'a3') { %>
+                          Check Contractor Affidavit Format
+                        <% } else if (project.first_null_column === 'b1') { %>
+                          Schedule Final Walkthrough
+                        <% } else if (project.first_null_column === 'b2') { %>
+                          Complete Final Walkthrough
+                        <% } else if (project.first_null_column === 'b3') { %>
+                          Upload Walkthrough 
+                        <% } else if (project.first_null_column === 'c1') { %>
+                          Perform Testing
+                        <% } else if (project.first_null_column === 'c2') { %>
+                          Perform Testing
+                        <% } else if (project.first_null_column === 'c3') { %>
+                          Upload Testing Results 
+                        <% } else if (project.first_null_column === 'd1') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd2') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd3') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd4') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd5') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd6') { %>
+                          Pending remaining DDS
+                        <% } else if (project.first_null_column === 'd7') { %>
+                          Waiting for DDS Internal Review
+                        <% } else if (project.first_null_column === 'e1') { %>
+                          Submit DDS to City
+                        <% } else if (project.first_null_column === 'e2') { %>
+                          Pending City Approval
+                        <% } else if (project.first_null_column === 'e3') { %>
+                          Upload DDS Approval Letter
+                        <% } else if (project.first_null_column === 'f1') { %>
+                          Sign and Noterized Affidavit
+                        <% } else if (project.first_null_column === 'f2') { %>
+                          Send signed affidavit to City
+                        <% } else { %>
+                          PROJECT COMPLETE
+                        <% } %>
+                      </td>
+                    <td><%= project.cosd %></td>
+                    <td><%= project.edit_timestamp %></td>
+                    <td><%= project.running_by %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+  </div>
+    </div>

@@ -223,7 +223,7 @@ app.post("/signup", async (req, res) => {
         <p>Name: ${fName} ${lName}</p>
         <p>Email: ${email}</p>
         <p>Company: ${companyName}</p>
-        <p>Click <a href="http://keepupwork.com/confirmation/${token}">here</a> to verify the user.</p>
+        <p>Click <a href="http://www.keepupwork.com/confirmation/${token}">here</a> to verify the user.</p>
       `,
     });
 
@@ -245,7 +245,7 @@ app.get('/confirmation/:token', async (req, res) => {
     await db.query('UPDATE users SET jwt_verified = true WHERE email = $1', [email]);
 
     // Redirect to the confirmation page and pass user details as query parameters
-    res.redirect(`http://localhost:5000/confirmation?fname=${fName}&lname=${lName}&email=${email}`);
+    res.redirect(`http://keepupwork.com/confirmation?fname=${fName}&lname=${lName}&email=${email}`);
   } catch (e) {
     // Handle token verification error
     console.error(e);

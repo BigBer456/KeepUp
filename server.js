@@ -892,14 +892,23 @@ app.get("/Logged-In/review", async (req, res) => {
   try {
     const result = await db.query(`
     SELECT 
-      p.project_name, 
-      TO_CHAR(p.cosd, 'MM/DD/YY') AS cosd,
-      TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
-      CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by,
-      p.d7 AS is_d7_null
-    FROM projects p
-    INNER JOIN users u ON p.user_email = u.email
-    WHERE p.d7 IS NULL;
+    p.project_name, 
+    TO_CHAR(p.cosd, 'MM/DD/YY') AS cosd,
+    TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
+    CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by,
+    p.d7 AS is_d7_null
+FROM 
+    projects p
+INNER JOIN 
+    users u ON p.user_email = u.email
+WHERE 
+    p.d7 IS NULL
+    AND p.d1 = true
+    AND p.d2 = true
+    AND p.d3 = true
+    AND p.d4 = true
+    AND p.d5 = true
+    AND p.d6 = true;
     `);
     const projects = result.rows;
 

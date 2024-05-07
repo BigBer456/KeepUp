@@ -81,6 +81,10 @@ app.get("/getquote", (req, res) => {
   res.render("getquote.ejs");
 });
 
+app.get("/learnmore", (req, res) => {
+  res.render("learnmore.ejs");
+});
+
 app.get("/login", (req, res) => {
   let accountNotVerified = false;
   let userNotFound = false;

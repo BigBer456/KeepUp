@@ -313,9 +313,13 @@ app.post("/addproject", async (req, res) => {
   const user_email = req.session.user.email;
   
   try {
+    // Retrieve the user's company from the user table
+    const { rows: [{ company }] } = await db.query("SELECT company FROM users WHERE email = $1", [user_email]);
+
+    // Insert the project into the projects table, including the user's company
     await db.query(
-      "INSERT INTO projects (project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, CURRENT_TIMESTAMP)",
-      [project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email]
+      "INSERT INTO projects (project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, CURRENT_TIMESTAMP)",
+      [project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company]
     );
 
     // Redirect the user to contactemail if the form was submitted after confirmation
@@ -422,73 +426,77 @@ let projects = [];
 
 app.get("/Logged-In/dashboard", async (req, res) => {
   try {
+    const user_email = req.session.user.email; // Get the current user's email
+
     const result = await db.query(`
-    SELECT 
-    p.project_name, 
-    p.contractor_email,
-    ROUND((
-      (CASE WHEN p.a1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.a2 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.a3 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.b1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.b2 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.b3 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.c1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.c2 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.c3 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d2 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d3 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d4 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d5 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d6 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.d7 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.e1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.e2 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.e3 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.f1 THEN 1 ELSE 0 END) + 
-      (CASE WHEN p.f2 THEN 1 ELSE 0 END)
-    ) * 1.0 / 21 * 100, 0) AS checked_percentage,
-    (
-      CASE
-        WHEN p.a1 IS NULL THEN 'a1'
-        WHEN p.a2 IS NULL THEN 'a2'
-        WHEN p.a3 IS NULL THEN 'a3'
-        WHEN p.b1 IS NULL THEN 'b1'
-        WHEN p.b2 IS NULL THEN 'b2'
-        WHEN p.b3 IS NULL THEN 'b3'
-        WHEN p.c1 IS NULL THEN 'c1'
-        WHEN p.c2 IS NULL THEN 'c2'
-        WHEN p.c3 IS NULL THEN 'c3'
-        WHEN p.d1 IS NULL THEN 'd1'
-        WHEN p.d2 IS NULL THEN 'd2'
-        WHEN p.d3 IS NULL THEN 'd3'
-        WHEN p.d4 IS NULL THEN 'd4'
-        WHEN p.d5 IS NULL THEN 'd5'
-        WHEN p.d6 IS NULL THEN 'd6'
-        WHEN p.d7 IS NULL THEN 'd7'
-        WHEN p.e1 IS NULL THEN 'e1'
-        WHEN p.e2 IS NULL THEN 'e2'
-        WHEN p.e3 IS NULL THEN 'e3'
-        WHEN p.f1 IS NULL THEN 'f1'
-        WHEN p.f2 IS NULL THEN 'f2'
-        ELSE NULL
-      END
-    ) AS first_null_column,
-    TO_CHAR(p.cosd, 'MM/DD/YY') AS cosd,
-    TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
-    CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by
-FROM projects p
-INNER JOIN users u ON p.user_email = u.email;
-    `);
-    projects = result.rows;
+      SELECT 
+        p.project_name, 
+        p.contractor_email,
+        ROUND((
+          (CASE WHEN p.a1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a2 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.b1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.b2 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.b3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.c1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.c2 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.c3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d2 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d5 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d6 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.d7 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.e1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.e2 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.e3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.f1 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.f2 THEN 1 ELSE 0 END)
+        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
+        (
+          CASE
+            WHEN p.a1 IS NULL THEN 'a1'
+            WHEN p.a2 IS NULL THEN 'a2'
+            WHEN p.a3 IS NULL THEN 'a3'
+            WHEN p.b1 IS NULL THEN 'b1'
+            WHEN p.b2 IS NULL THEN 'b2'
+            WHEN p.b3 IS NULL THEN 'b3'
+            WHEN p.c1 IS NULL THEN 'c1'
+            WHEN p.c2 IS NULL THEN 'c2'
+            WHEN p.c3 IS NULL THEN 'c3'
+            WHEN p.d1 IS NULL THEN 'd1'
+            WHEN p.d2 IS NULL THEN 'd2'
+            WHEN p.d3 IS NULL THEN 'd3'
+            WHEN p.d4 IS NULL THEN 'd4'
+            WHEN p.d5 IS NULL THEN 'd5'
+            WHEN p.d6 IS NULL THEN 'd6'
+            WHEN p.d7 IS NULL THEN 'd7'
+            WHEN p.e1 IS NULL THEN 'e1'
+            WHEN p.e2 IS NULL THEN 'e2'
+            WHEN p.e3 IS NULL THEN 'e3'
+            WHEN p.f1 IS NULL THEN 'f1'
+            WHEN p.f2 IS NULL THEN 'f2'
+            ELSE NULL
+          END
+        ) AS first_null_column,
+        TO_CHAR(p.cosd, 'MM/DD/YY') AS cosd,
+        TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
+        CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by
+      FROM projects p
+      INNER JOIN users u ON p.company = u.company
+      WHERE u.email = $1; -- Filter projects by user's email
+    `, [user_email]);
+
+    const projects = result.rows;
 
     res.render("Logged-In/dashboard.ejs", {
       listProjects: projects,
       currentPage: "dashboard"
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 });
 
@@ -580,6 +588,8 @@ app.get("/Logged-In/myprojects", async (req, res) => {
 //Active Projects Table
 app.get("/Logged-In/activeprojects", async (req, res) => {
   try {
+    const user_email = req.session.user.email; // Get the current user's email
+
     const result = await db.query(`
       SELECT 
         p.project_name, 
@@ -637,16 +647,18 @@ app.get("/Logged-In/activeprojects", async (req, res) => {
         TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
         CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by
       FROM projects p
-      INNER JOIN users u ON p.user_email = u.email
-    `);
-    projects = result.rows;
+      INNER JOIN users u ON p.company = u.company -- Join on company column
+      WHERE u.email = $1; -- Filter by user's email
+    `, [user_email]);
+
+    const projects = result.rows;
 
     res.render("Logged-In/activeprojects.ejs", {
       listProjects: projects,
       currentPage: "activeprojects"
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 });
 

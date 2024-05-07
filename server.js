@@ -223,7 +223,7 @@ app.post("/signup", async (req, res) => {
         <p>Name: ${fName} ${lName}</p>
         <p>Email: ${email}</p>
         <p>Company: ${companyName}</p>
-        <p>Click <a href="http://localhost:5000/confirmation/${token}">here</a> to verify the user.</p>
+        <p>Click <a href="http://keepupwork.com/confirmation/${token}">here</a> to verify the user.</p>
       `,
     });
 

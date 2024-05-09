@@ -85,6 +85,10 @@ app.get("/learnmore", (req, res) => {
   res.render("learnmore.ejs");
 });
 
+app.get("/forgotpassword", (req, res) => {
+  res.render("forgotpassword.ejs");
+});
+
 app.get("/login", (req, res) => {
   let accountNotVerified = false;
   let userNotFound = false;
@@ -149,8 +153,96 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//Email Verification Page
+//Forgot Password Email Sending
+// Function to generate a unique token
+function generateToken(email) {
+  return jwt.sign({ email }, EMAIL_SECRET, { expiresIn: '1h' }); // Token expires in 1 hour
+}
 
+// Route to handle forgot password request
+app.post('/forgotpassword', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Query to check if the email exists in the users table
+    const queryResult = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+
+    if (queryResult.rows.length > 0) {
+      // Generate a unique token
+      const token = generateToken(email);
+
+      // Email exists, send reset password link with token
+      const mailOptions = {
+        from: process.env.NODEMAILER_USER,
+        to: email,
+        subject: 'Password Reset Instructions',
+        text: 'Click here to reset your password.',
+        html: `<p>Click <a href="http://www.keepupwork.com/changepassword/${token}">here</a> to reset your password</p>`
+      };
+
+      // Send mail
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+          res.redirect('/');
+        } else {
+          console.log('Email sent:', info.response);
+          res.redirect('/');
+        }
+      });
+    } else {
+      // Email does not exist
+      res.redirect('/');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Middleware to check token validity and expiration
+app.use('/changepassword/:token', (req, res, next) => {
+  const { token } = req.params;
+
+  jwt.verify(token, EMAIL_SECRET, (err, decoded) => {
+    if (err) {
+      res.status(401).send('Unauthorized'); // Token is invalid
+    } else {
+      req.email = decoded.email; // Attach decoded email to request object
+      next(); // Token is valid, proceed to the next middleware
+    }
+  });
+});
+
+// Route to handle rendering the changepassword page
+app.get('/changepassword/:token', (req, res) => {
+  const { token } = req.params;
+  const { email } = req; // Access email from request object
+
+  // Pass email to the view or perform any necessary operations
+  res.render("changepassword.ejs", { email }); // Render the changepassword page with email
+});
+
+//Change Forgotten Password
+app.post('/changepassword', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Encrypt password with bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the saltRounds
+
+    // Update password in the database
+    await db.query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword, email]);
+
+    console.log('Password updated successfully');
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).send('Error updating password');
+  }
+});
+
+//Email Verification Page
 app.get("/verification", (req, res) => {
   res.render("verification1.ejs");
 });

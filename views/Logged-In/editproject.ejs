@@ -153,6 +153,18 @@
                       <input type="text" class="form-control" id="projectName2" name="updatedProjectName" value="<%= projectName %>" autocomplete="off">
                     </div>
                     <div class="form-group">
+                        <label for="projectName">DRN</label>
+                        <input type="text" class="form-control" id="drn" name="updateddrn" value="<%= project.drn %>" autocomplete="off">
+                      </div>
+                      <div class="form-group">
+                        <label for="projectName">STC</label>
+                        <input type="text" class="form-control" id="stc" name="updatedstc" value="<%= project.stc %>" autocomplete="off">
+                      </div>
+                      <div class="form-group">
+                        <label for="projectName">DRV</label>
+                        <input type="text" class="form-control" id="drv" name="updateddrv" value="<%= project.drv %>" autocomplete="off">
+                      </div>
+                    <div class="form-group">
                       <label for="contractorEmail">Contractor Email</label>
                       <input type="email" class="form-control" id="contractorEmail" name="updatedContractorEmail" value="<%= project ? project.contractor_email : '' %>" autocomplete="off">
                     </div>
@@ -213,9 +225,26 @@
                                     <div class="form-check mt-3">
                                         <input class="form-check-input" type="checkbox" id="a3" name="a3" <%= project.a3 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="a3">
-                                            <span class="checkbox-text">Has the contractor filled out the affidavit correctly?</span>
+                                            <span class="checkbox-text">Has the contractor filled out the DRN affidavit correctly?</span>
                                         </label>
                                     </div>
+                                    <% if (project.stc !== null) { %>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" id="a4" name="a4" <%= project.a4 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                            <label class="form-check-label" for="a4">
+                                                <span class="checkbox-text">Has the contractor filled out the STC affidavit correctly?</span>
+                                            </label>
+                                        </div>
+                                        <% } %>
+                                        
+                                        <% if (project.drv !== null) { %>
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" id="a5" name="a5" <%= project.a5 ? 'checked' : '' %> onclick="logCheckbox(this)">
+                                            <label class="form-check-label" for="a5">
+                                                <span class="checkbox-text">Has the contractor filled out the DRV affidavit correctly?</span>
+                                            </label>
+                                        </div>
+                                        <% } %>                                        
                                 </th>
                                 <!--Section B-->                      
                                 <td>

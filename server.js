@@ -309,17 +309,21 @@ app.get("/Logged-In/addproject", (req, res) => {
 
 // Add A Project
 app.post("/addproject", async (req, res) => {
-  const { project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, confirmed } = req.body;
+  const { project_name, contractor_email, cosd, a1, a2, a3, a4, a5, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, confirmed, drn, stc, drv } = req.body;
   const user_email = req.session.user.email;
-  
+
   try {
     // Retrieve the user's company from the user table
     const { rows: [{ company }] } = await db.query("SELECT company FROM users WHERE email = $1", [user_email]);
 
+    // Handle optional STC and DRV values
+    const stcValue = stc === "STC" ? null : stc;
+    const drvValue = drv === "DRV" ? null : drv;
+
     // Insert the project into the projects table, including the user's company
     await db.query(
-      "INSERT INTO projects (project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, CURRENT_TIMESTAMP)",
-      [project_name, contractor_email, cosd, a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company]
+      "INSERT INTO projects (project_name, contractor_email, cosd, a1, a2, a3, a4, a5, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company, drn, stc, drv, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, CURRENT_TIMESTAMP)",
+      [project_name, contractor_email, cosd, a1, a2, a3, a4, a5, b1, b2, b3, c1, c2, c3, d1, d2, d3, d4, d5, d6, d7, e1, e2, e3, f1, f2, user_email, company, drn, stcValue, drvValue]
     );
 
     // Redirect the user to contactemail if the form was submitted after confirmation
@@ -334,7 +338,6 @@ app.post("/addproject", async (req, res) => {
   }
 });
 
-
 //Auto initial Contact Email
 app.get("/Logged-In/contactemail", async (req, res) => {
   try {
@@ -345,15 +348,17 @@ app.get("/Logged-In/contactemail", async (req, res) => {
     const userQuery = await db.query("SELECT company FROM users WHERE email = $1", [user_email]);
     const companyName = userQuery.rows[0].company;
 
-    // Fetch users with the same company name
-    // Fetch users with the same company name excluding the current user
-    // Fetch users with the same company name excluding the current user and those who are not jwt_verified
-const companyUsersQuery = await db.query("SELECT id, fname, lname, email FROM users WHERE company = $1 AND email != $2 AND jwt_verified = true", [companyName, user_email]);
-const companyUsers = companyUsersQuery.rows;
+    // Fetch project details including drn, stc, and drv
+    const projectQuery = await db.query("SELECT drn, stc, drv FROM projects WHERE project_name = $1 AND contractor_email = $2", [project_name, contractor_email]);
+    const { drn, stc, drv } = projectQuery.rows[0]; // Assuming there's only one project with the same name and email
 
- // Determine the greeting based on the current time
- const currentTime = new Date().getHours();
- const greeting = currentTime < 12 ? "Good morning" : "Good afternoon";
+    // Fetch users with the same company name excluding the current user and those who are not jwt_verified
+    const companyUsersQuery = await db.query("SELECT id, fname, lname, email FROM users WHERE company = $1 AND email != $2 AND jwt_verified = true", [companyName, user_email]);
+    const companyUsers = companyUsersQuery.rows;
+
+    // Determine the greeting based on the current time
+    const currentTime = new Date().getHours();
+    const greeting = currentTime < 12 ? "Good morning" : "Good afternoon";
 
     // Render contactemail.ejs with project details and company users
     res.render("Logged-In/contactemail.ejs", {
@@ -363,7 +368,10 @@ const companyUsers = companyUsersQuery.rows;
       company_name: companyName,
       user_email: user_email,
       company_users: companyUsers,
-      greeting: greeting
+      greeting: greeting,
+      drn: drn,
+      stc: stc,
+      drv: drv
     });
   } catch (error) {
     console.error("Error fetching project details:", error);
@@ -374,16 +382,20 @@ const companyUsers = companyUsersQuery.rows;
 //Send Auto Initial Contact Email
 const upload = multer({ dest: 'uploads/' });
 
-app.post("/send-email", upload.single('attachment'), async (req, res) => {
+app.post("/send-email", upload.array('attachment', 3), async (req, res) => {
   try {
     const { to, cc, subject, body } = req.body;
 
-    // Check if a file was uploaded
+    // Check if files were uploaded
     let attachments = [];
-    if (req.file) {
-      attachments.push({
-        filename: req.file.originalname,
-        path: req.file.path
+
+    // Loop through uploaded files and push them to the attachments array
+    if (req.files && req.files.length > 0) {
+      req.files.forEach(file => {
+        attachments.push({
+          filename: file.originalname,
+          path: file.path
+        });
       });
     }
 
@@ -404,11 +416,10 @@ app.post("/send-email", upload.single('attachment'), async (req, res) => {
       attachments: attachments
     });
 
-    // Redirect user to /Logged-In/myprojects
     res.redirect("/Logged-In/myprojects");
   } catch (error) {
     console.error("Error sending email:", error);
-    alert("Error sending email");
+    res.status(500).send("Error sending email");
   }
 });
 
@@ -436,6 +447,8 @@ app.get("/Logged-In/dashboard", async (req, res) => {
           (CASE WHEN p.a1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.a2 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a5 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b2 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b3 THEN 1 ELSE 0 END) + 
@@ -454,36 +467,45 @@ app.get("/Logged-In/dashboard", async (req, res) => {
           (CASE WHEN p.e3 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.f1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.f2 THEN 1 ELSE 0 END)
-        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
-        (
+      ) * 1.0 / (
           CASE
-            WHEN p.a1 IS NULL THEN 'a1'
-            WHEN p.a2 IS NULL THEN 'a2'
-            WHEN p.a3 IS NULL THEN 'a3'
-            WHEN p.b1 IS NULL THEN 'b1'
-            WHEN p.b2 IS NULL THEN 'b2'
-            WHEN p.b3 IS NULL THEN 'b3'
-            WHEN p.c1 IS NULL THEN 'c1'
-            WHEN p.c2 IS NULL THEN 'c2'
-            WHEN p.c3 IS NULL THEN 'c3'
-            WHEN p.d1 IS NULL THEN 'd1'
-            WHEN p.d2 IS NULL THEN 'd2'
-            WHEN p.d3 IS NULL THEN 'd3'
-            WHEN p.d4 IS NULL THEN 'd4'
-            WHEN p.d5 IS NULL THEN 'd5'
-            WHEN p.d6 IS NULL THEN 'd6'
-            WHEN p.d7 IS NULL THEN 'd7'
-            WHEN p.e1 IS NULL THEN 'e1'
-            WHEN p.e2 IS NULL THEN 'e2'
-            WHEN p.e3 IS NULL THEN 'e3'
-            WHEN p.f1 IS NULL THEN 'f1'
-            WHEN p.f2 IS NULL THEN 'f2'
-            ELSE NULL
+              WHEN p.stc IS NULL AND p.drv IS NULL THEN 21
+              WHEN p.stc IS NOT NULL AND p.drv IS NULL THEN 22
+              WHEN p.stc IS NULL AND p.drv IS NOT NULL THEN 22
+              ELSE 23
           END
+      ) * 100, 0) AS checked_percentage,                  
+        (
+            CASE
+                WHEN p.a1 IS NULL THEN 'a1'
+                WHEN p.a2 IS NULL THEN 'a2'
+                WHEN p.a3 IS NULL THEN 'a3'
+                WHEN p.b1 IS NULL THEN 'b1'
+                WHEN p.b2 IS NULL THEN 'b2'
+                WHEN p.b3 IS NULL THEN 'b3'
+                WHEN p.c1 IS NULL THEN 'c1'
+                WHEN p.c2 IS NULL THEN 'c2'
+                WHEN p.c3 IS NULL THEN 'c3'
+                WHEN p.d1 IS NULL THEN 'd1'
+                WHEN p.d2 IS NULL THEN 'd2'
+                WHEN p.d3 IS NULL THEN 'd3'
+                WHEN p.d4 IS NULL THEN 'd4'
+                WHEN p.d5 IS NULL THEN 'd5'
+                WHEN p.d6 IS NULL THEN 'd6'
+                WHEN p.d7 IS NULL THEN 'd7'
+                WHEN p.e1 IS NULL THEN 'e1'
+                WHEN p.e2 IS NULL THEN 'e2'
+                WHEN p.e3 IS NULL THEN 'e3'
+                WHEN p.f1 IS NULL THEN 'f1'
+                WHEN p.f2 IS NULL THEN 'f2'
+                ELSE NULL
+            END
         ) AS first_null_column,
         TO_CHAR(p.cosd, 'MM/DD/YY') AS cosd,
         TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
-        CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by
+        CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by,
+        p.drn, p.stc, p.drv, -- Fetch drn, stc, drv values
+        p.a4, p.a5 -- Fetch a4 and a5 values
       FROM projects p
       INNER JOIN users u ON p.company = u.company
       WHERE u.email = $1; -- Filter projects by user's email
@@ -515,10 +537,15 @@ app.get("/Logged-In/myprojects", async (req, res) => {
       SELECT 
         project_name, 
         contractor_email,
+        drn,  -- Include drn column
+        stc,  -- Include stc column
+        drv,  -- Include drv column
         ROUND((
           (CASE WHEN a1 THEN 1 ELSE 0 END) + 
           (CASE WHEN a2 THEN 1 ELSE 0 END) + 
           (CASE WHEN a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a5 THEN 1 ELSE 0 END) + 
           (CASE WHEN b1 THEN 1 ELSE 0 END) + 
           (CASE WHEN b2 THEN 1 ELSE 0 END) + 
           (CASE WHEN b3 THEN 1 ELSE 0 END) + 
@@ -537,7 +564,14 @@ app.get("/Logged-In/myprojects", async (req, res) => {
           (CASE WHEN e3 THEN 1 ELSE 0 END) + 
           (CASE WHEN f1 THEN 1 ELSE 0 END) + 
           (CASE WHEN f2 THEN 1 ELSE 0 END)
-        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
+      ) * 1.0 / (
+          CASE
+              WHEN stc IS NULL AND drv IS NULL THEN 21
+              WHEN stc IS NOT NULL AND drv IS NULL THEN 22
+              WHEN stc IS NULL AND drv IS NOT NULL THEN 22
+              ELSE 23
+          END
+      ) * 100, 0) AS checked_percentage,
         (
           CASE
             WHEN a1 IS NULL THEN 'a1'
@@ -594,10 +628,15 @@ app.get("/Logged-In/activeprojects", async (req, res) => {
       SELECT 
         p.project_name, 
         p.contractor_email,
+        p.drn,  -- Include drn column
+        p.stc,  -- Include stc column
+        p.drv,  -- Include drv column
         ROUND((
           (CASE WHEN p.a1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.a2 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN p.a5 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b2 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.b3 THEN 1 ELSE 0 END) + 
@@ -616,7 +655,14 @@ app.get("/Logged-In/activeprojects", async (req, res) => {
           (CASE WHEN p.e3 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.f1 THEN 1 ELSE 0 END) + 
           (CASE WHEN p.f2 THEN 1 ELSE 0 END)
-        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
+      ) * 1.0 / (
+          CASE
+              WHEN p.stc IS NULL AND p.drv IS NULL THEN 21
+              WHEN p.stc IS NOT NULL AND p.drv IS NULL THEN 22
+              WHEN p.stc IS NULL AND p.drv IS NOT NULL THEN 22
+              ELSE 23
+          END
+      ) * 100, 0) AS checked_percentage,
         (
           CASE
             WHEN p.a1 IS NULL THEN 'a1'
@@ -696,10 +742,13 @@ app.get("/Logged-In/editproject", async (req, res) => {
         d1, d2, d3, d4, d5, d6, d7, 
         e1, e2, e3, 
         f1, f2, contractor_email, user_email,
+        drn, stc, drv,
         ROUND((
           (CASE WHEN a1 THEN 1 ELSE 0 END) + 
           (CASE WHEN a2 THEN 1 ELSE 0 END) + 
           (CASE WHEN a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a5 THEN 1 ELSE 0 END) + 
           (CASE WHEN b1 THEN 1 ELSE 0 END) + 
           (CASE WHEN b2 THEN 1 ELSE 0 END) + 
           (CASE WHEN b3 THEN 1 ELSE 0 END) + 
@@ -718,7 +767,14 @@ app.get("/Logged-In/editproject", async (req, res) => {
           (CASE WHEN e3 THEN 1 ELSE 0 END) + 
           (CASE WHEN f1 THEN 1 ELSE 0 END) + 
           (CASE WHEN f2 THEN 1 ELSE 0 END)
-        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
+      ) * 1.0 / (
+          CASE
+              WHEN stc IS NULL AND drv IS NULL THEN 21
+              WHEN stc IS NOT NULL AND drv IS NULL THEN 22
+              WHEN stc IS NULL AND drv IS NOT NULL THEN 22
+              ELSE 23
+          END
+      ) * 100, 0) AS checked_percentage,
         TO_CHAR(cosd, 'MM/DD/YY') AS cosd,
         TO_CHAR(edit_timestamp, 'MM/DD/YY') AS edit_timestamp 
       FROM projects
@@ -758,9 +814,17 @@ app.post("/Logged-In/editproject", async (req, res) => {
   const projectName = req.body.projectName; // Get the original project name
   const updatedProjectName = req.body.updatedProjectName;
   const updatedContractorEmail = req.body.updatedContractorEmail;
+  let updatedDrn = req.body.updateddrn; // Get the updated DRN value
+  let updatedStc = req.body.updatedstc; // Get the updated STC value
+  let updatedDrv = req.body.updateddrv; // Get the updated DRV value
+
+  // Check if the values are empty strings and set them to null
+  updatedDrn = updatedDrn.trim() !== "" ? updatedDrn : null;
+  updatedStc = updatedStc.trim() !== "" ? updatedStc : null;
+  updatedDrv = updatedDrv.trim() !== "" ? updatedDrv : null;
 
   try {
-    await db.query("UPDATE projects SET project_name = $1, contractor_email = $2 WHERE project_name = $3", [updatedProjectName, updatedContractorEmail, projectName]);
+    await db.query("UPDATE projects SET project_name = $1, contractor_email = $2, drn = $3, stc = $4, drv = $5 WHERE project_name = $6", [updatedProjectName, updatedContractorEmail, updatedDrn, updatedStc, updatedDrv, projectName]);
     res.redirect("/Logged-In/editproject?projectName=" + updatedProjectName);
   } catch (error) {
     console.error("Error updating project details:", error);
@@ -813,6 +877,8 @@ app.get("/Logged-In/viewproject", async (req, res) => {
           (CASE WHEN a1 THEN 1 ELSE 0 END) + 
           (CASE WHEN a2 THEN 1 ELSE 0 END) + 
           (CASE WHEN a3 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a4 THEN 1 ELSE 0 END) + 
+          (CASE WHEN a5 THEN 1 ELSE 0 END) + 
           (CASE WHEN b1 THEN 1 ELSE 0 END) + 
           (CASE WHEN b2 THEN 1 ELSE 0 END) + 
           (CASE WHEN b3 THEN 1 ELSE 0 END) + 
@@ -831,7 +897,14 @@ app.get("/Logged-In/viewproject", async (req, res) => {
           (CASE WHEN e3 THEN 1 ELSE 0 END) + 
           (CASE WHEN f1 THEN 1 ELSE 0 END) + 
           (CASE WHEN f2 THEN 1 ELSE 0 END)
-        ) * 1.0 / 21 * 100, 0) AS checked_percentage,
+      ) * 1.0 / (
+          CASE
+              WHEN stc IS NULL AND drv IS NULL THEN 21
+              WHEN stc IS NOT NULL AND drv IS NULL THEN 22
+              WHEN stc IS NULL AND drv IS NOT NULL THEN 22
+              ELSE 23
+          END
+      ) * 100, 0) AS checked_percentage,
         TO_CHAR(cosd, 'MM/DD/YY') AS cosd,
         TO_CHAR(edit_timestamp, 'MM/DD/YY') AS edit_timestamp 
       FROM projects

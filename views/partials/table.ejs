@@ -8,19 +8,21 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th style="width: 16.666%;">Project</th>
-                    <th style="width: 16.666%;">Contact</th>
-                    <th style="width: 16.666%;">Percent Completed</th>
-                    <th style="width: 16.666%;">Next Step</th>
-                    <th style="width: 16.666%;">Close-out Start Date</th>
-                    <th style="width: 16.666%;">Last Updated</th>
-                    <th style="width: 16.666%;">Running By</th>
+                    <th style="width: 12.5%;">Project</th>
+                    <th style="width: 12.5%;">DRN/STC/DRV</th>
+                    <th style="width: 12.5%;">Contact</th>
+                    <th style="width: 12.5%;">Percent Completed</th>
+                    <th style="width: 12.5%;">Next Step</th>
+                    <th style="width: 12.5%;">Close-out Start Date</th>
+                    <th style="width: 12.5%;">Last Updated</th>
+                    <th style="width: 12.5%;">Running By</th>
                 </tr>
             </thead>
             <tbody>
                 <% for(let project of listProjects){%>
                 <tr>
                     <td><%= project.project_name %></td>
+                    <td><%= project.drn %> <%= project.stc %> <%= project.drv %></td>
                     <td><%= project.contractor_email %></td>
                     <td><%= project.checked_percentage %>%</td>
                     <td>

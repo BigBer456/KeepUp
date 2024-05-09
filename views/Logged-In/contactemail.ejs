@@ -55,16 +55,19 @@
                 </div>
                 <hr>
                 <div class="b3-3 row">
-                    <p style="margin: 10px;">Attach file:</p>
-                    <input type="file" class="form-control" style="width: 300px; color: black;" name="attachment" id="attachment" accept=".pdf">
-                    <span id="attachmentError" style="color: red; display: none; margin-left: 10px; margin-top: 8px;">Please attach affidavit</span>
+                  <p style="margin: 10px;">Attach file:</p>
+                  <input type="file" class="form-control" style="width: 300px; color: black;" name="attachment" id="attachment" accept=".pdf" multiple>
+                  <span id="attachmentError" style="color: red; display: none; margin-left: 10px; margin-top: 8px;">Please attach DRN affidavit</span>
+                  <span id="attachmentError2" style="color: red; display: none; margin-left: 10px; margin-top: 8px;">Please attach DRN and STC affidavit</span>
+                  <span id="attachmentError3" style="color: red; display: none; margin-left: 10px; margin-top: 8px;">Please attach DRN and DRV affidavit</span>
+                  <span id="attachmentError4" style="color: red; display: none; margin-left: 10px; margin-top: 8px;">Please attach DRN, STC and DRV affidavit</span>
                 </div>
                 <br>
                 <div class="mb-3 row">
                     <textarea id="emailBody" style="width: 100%; height: 290px; padding-left: 10px;" name="body">
 <%= greeting %>, 
                     
-<%= company_name %> would like to begin the process of closing out the <%= project_name %> project. First, we will need to schedule a time to meet for a final walkthrough and a time to perform all testing including mandrel and cam testing if applicable. We will also need you to fill out the attached affidavit. We will also need you to send all DDSS documentation including reproducible plans, digital data CAD, GIS data attributes table, O&M manuals, and DDS checklist in the correct format. I have attached a link for the digital data submission standards below. If you have any questions, please feel free to contact <%= user_email %>. Do not respond to this email.
+<%= company_name %> would like to begin the process of closing out the <%= project_name %> <%= drn %> project. First, we will need to schedule a time to meet for a final walkthrough and a time to perform all testing including mandrel and cam testing if applicable.<% if (!stc && !drv) { %> We will also need you to fill out the attached affidavit for <%= drn %>.<% } else if (stc && !drv) { %> We will also need you to fill out the attached affidavit for <%= drn %> and <%= stc %>.<% } else if (drv && !stc) { %> We will also need you to fill out the attached affidavit for <%= drn %> and <%= drv %>.<% } else { %> We will also need you to fill out the attached affidavit for <%= drn %>, <%= stc %> and <%= drv %>.<% } %> We will also need you to send all DDSS documentation including reproducible plans, digital data CAD, GIS data attributes table, O&M manuals, and DDS checklist in the correct format. I have attached a link for the digital data submission standards below. If you have any questions, please feel free to contact <%= user_email %>. Do not respond to this email.
                     
 Thank you,
                     
@@ -146,21 +149,43 @@ if (sidebarCollapsed) {
 
 <!--No Attachment Error-->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('emailForm');
-    const attachmentInput = document.getElementById('attachment');
-    const attachmentError = document.getElementById('attachmentError');
+  document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('emailForm');
+      const attachmentInput = document.getElementById('attachment');
+      const attachmentError = document.getElementById('attachmentError');
+      const attachmentError2 = document.getElementById('attachmentError2');
+      const attachmentError3 = document.getElementById('attachmentError3');
+      const attachmentError4 = document.getElementById('attachmentError4');
+      const stcValue = '<%= stc %>';
+      const drvValue = '<%= drv %>';
 
-    form.addEventListener('submit', function(event) {
-        // Check if a file is selected
-        if (attachmentInput.files.length === 0) {
-            // Prevent form submission
-            event.preventDefault();
-            // Show error message
-            attachmentError.style.display = 'block';
-        }
-    });
-});
+      form.addEventListener('submit', function(event) {
+          // Reset error message display
+          attachmentError.style.display = 'none';
+          attachmentError2.style.display = 'none';
+          attachmentError3.style.display = 'none';
+          attachmentError4.style.display = 'none';
+
+          // Check conditions based on stc and drv values
+          if (stcValue === null && drvValue === null && attachmentInput.files.length === 0) {
+              // If stc and drv are null and no attachments are provided
+              event.preventDefault();
+              attachmentError.style.display = 'block';
+          } else if (stcValue !== null && drvValue === null && (attachmentInput.files.length === 0 || attachmentInput.files.length === 1)) {
+              // If stc is not null, drv is null, and only one attachment or no attachments are provided
+              event.preventDefault();
+              attachmentError2.style.display = 'block';
+          } else if (drvValue !== null && stcValue === null && (attachmentInput.files.length === 0 || attachmentInput.files.length === 1)) {
+              // If drv is not null, stc is null, and only one attachment or no attachments are provided
+              event.preventDefault();
+              attachmentError3.style.display = 'block';
+          } else if (drvValue !== null && stcValue !== null && (attachmentInput.files.length === 0 || attachmentInput.files.length === 1 || attachmentInput.files.length === 2)) {
+              // If both drv and stc are not null, and only one, two, or no attachments are provided
+              event.preventDefault();
+              attachmentError4.style.display = 'block';
+          }
+      });
+  });
 </script>
 
 <!--Sidebar responsive-->
@@ -201,6 +226,24 @@ sidebarToggle.addEventListener("click", function() {
       });
     });
   </script>  
+
+  <!--JS for stc and drv attachments-->
+  <script>
+    const stcValue = '<%= stc %>';
+    const drvValue = '<%= drv %>';
+
+    const attachmentInput = document.getElementById('attachment');
+
+    attachmentInput.addEventListener('change', function() {
+        // If both stc and drv are null, only one attachment is required
+        if (stcValue === null && drvValue === null) {
+            attachmentInput.setAttribute('required', true);
+        } else {
+            // Otherwise, two attachments are required
+            attachmentInput.removeAttribute('required');
+        }
+    });
+</script>
 
 <!-- Bootstrap core JavaScript-->
 <script src="../vendor/jquery/jquery.min.js"></script>

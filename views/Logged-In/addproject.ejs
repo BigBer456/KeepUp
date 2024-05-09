@@ -379,6 +379,18 @@
               <label for="pName" class="form-label">Project Name <span id="pNameErr" style="color: red; display: none;">Please fill out this field</span></label>
               <input type="text" class="form-control" id="pName" name="project_name">
             </div>
+            <div class="mb-4">
+                <label for="drn" class="form-label">DRN # <span id="DRNErr" style="color: red; display: none;">Please fill out this field</span></label>
+                <input type="text" class="form-control" id="drn" name="drn" value="DRN" autocomplete="off">
+              </div>
+              <div class="mb-4">
+                <label for="stc" class="form-label">STC # (optional)</label>
+                <input type="text" class="form-control" id="stc" name="stc" value="STC" autocomplete="off">
+              </div>
+              <div class="mb-4">
+                <label for="drv" class="form-label">DRV # (optional)</label>
+                <input type="text" class="form-control" id="drv" name="drv" value="DRV" autocomplete="off">
+              </div>
 
           <div class="mb-4">
             <label for="email" class="form-label">Email <span id="emailErr" style="color: red; display: none;">Please give valid email</span></label>
@@ -410,8 +422,18 @@
 
 <div class="form-checkA" id="checklist-item-3" style="display: none;">
   <input type="checkbox" class="form-check-input" id="checklist-3" name="a3">
-  <label class="form-check-label" for="checklist-3">Has the contractor filled out the affidavit correctly?</label>
+  <label class="form-check-label" for="checklist-3">Has the contractor filled out the DRN affidavit correctly?</label>
 </div>
+
+<div class="form-checkA" id="checklist-item-4" style="display: none;">
+    <input type="checkbox" class="form-check-input" id="checklist-4" name="a4">
+    <label class="form-check-label" for="checklist-4">Has the contractor filled out the STC affidavit correctly?</label>
+  </div>
+
+  <div class="form-checkA" id="checklist-item-5" style="display: none;">
+    <input type="checkbox" class="form-check-input" id="checklist-5" name="a5">
+    <label class="form-check-label" for="checklist-5">Has the contractor filled out the DRV affidavit correctly?</label>
+  </div>
 
       
       <hr class="my-4">
@@ -541,28 +563,62 @@
       <!-- Add more checklist items following the same pattern -->
 
         <!--Contact Contractor JS (A)-->
-        <script>
-          document.addEventListener("DOMContentLoaded", function() {
-      // Get references to all checkboxes
-      const checkboxes = document.querySelectorAll('.form-checkA input[type="checkbox"]');
-
-      // Add event listener to the first checkbox
-      checkboxes[0].addEventListener('change', function() {
-          // Check if the first checkbox is checked
-          if (this.checked) {
-          // If checked, show all remaining checkboxes
-          for (let i = 1; i < checkboxes.length; i++) {
-              checkboxes[i].closest('.form-checkA').style.display = 'block';
-          }
-          } else {
-          // If unchecked, hide all remaining checkboxes
-              for (let i = 1; i < checkboxes.length; i++) {
-                  checkboxes[i].closest('.form-checkA').style.display = 'none';
-                  }
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              const checkboxes = document.querySelectorAll('.form-checkA input[type="checkbox"]');
+              const stcInput = document.getElementById('stc');
+              const drvInput = document.getElementById('drv');
+          
+              function toggleA4Visibility() {
+                const stcValue = stcInput.value.trim();
+                const drvValue = drvInput.value.trim();
+                const a1Checked = checkboxes[0].checked;
+                const a4Checkbox = document.getElementById('checklist-item-4');
+          
+                if (stcValue !== 'STC' && a1Checked) {
+                  a4Checkbox.style.display = 'block';
+                } else {
+                  a4Checkbox.style.display = 'none';
+                }
               }
-          });
-      });
-        </script>
+          
+              stcInput.addEventListener('input', toggleA4Visibility);
+              checkboxes[0].addEventListener('change', toggleA4Visibility);
+          
+              function toggleA5Visibility() {
+                const stcValue = stcInput.value.trim();
+                const drvValue = drvInput.value.trim();
+                const a1Checked = checkboxes[0].checked;
+                const a5Checkbox = document.getElementById('checklist-item-5');
+          
+                if (drvValue !== 'DRV' && a1Checked) {
+                  a5Checkbox.style.display = 'block';
+                } else {
+                  a5Checkbox.style.display = 'none';
+                }
+              }
+          
+              drvInput.addEventListener('input', toggleA5Visibility);
+              checkboxes[0].addEventListener('change', toggleA5Visibility);
+          
+              checkboxes[0].addEventListener('change', function() {
+                if (this.checked) {
+                  for (let i = 1; i < checkboxes.length; i++) {
+                    checkboxes[i].closest('.form-checkA').style.display = 'block';
+                  }
+                } else {
+                  for (let i = 1; i < checkboxes.length; i++) {
+                    checkboxes[i].closest('.form-checkA').style.display = 'none';
+                  }
+                  document.getElementById('checklist-item-4').style.display = 'none';
+                  document.getElementById('checklist-item-5').style.display = 'none';
+                }
+          
+                toggleA4Visibility();
+                toggleA5Visibility();
+              });
+            });
+          </script>          
 
         <!--Final Walkthrough JS  (B)-->
         <script>
@@ -797,6 +853,7 @@ function validateDateFormat(date) {
 
     //Conditions
     const pNameValue = document.getElementById('pName').value.trim();
+    const drnValue = document.getElementById('drn').value.trim();
     const emailValue = document.getElementById('email').value.trim();
     const COSDValue = document.getElementById('COSD').value.trim();
 
@@ -805,6 +862,11 @@ function validateDateFormat(date) {
       document.getElementById('pNameErr').style.display = 'block';
     } else {
       document.getElementById('pNameErr').style.display = 'none';
+    }
+    if (drnValue === 'DRN'){
+      document.getElementById('DRNErr').style.display = 'block';
+    } else {
+      document.getElementById('DRNErr').style.display = 'none';
     }
     if (!validateEmail(emailValue)){
       document.getElementById('emailErr').style.display = 'block'
@@ -817,7 +879,7 @@ function validateDateFormat(date) {
         document.getElementById('COSDErr').style.display = 'none';
     }
     
-    if (pNameValue !== '' && emailValue !== '' && validateDateFormat(COSDValue)) {
+    if (pNameValue !== '' && drnValue !== 'DRN' && emailValue !== '' && validateDateFormat(COSDValue)) {
         // Condition is met, so submit the form
         document.getElementById('myForm').submit();
     } else {

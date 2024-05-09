@@ -54,12 +54,13 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Project</th>
-                        <th>Contact</th>
-                        <th>Percent Completed</th>
-                        <th>Next Step</th>
-                        <th>Close-out Start Date</th>
-                        <th>Last Updated</th>
+                      <th style="width: 14.2857%;">Project</th>
+                      <th style="width: 14.2857%;">DRN/STC/DRV</th>
+                      <th style="width: 14.2857%;">Contact</th>
+                      <th style="width: 14.2857%;">Percent Completed</th>
+                      <th style="width: 14.2857%;">Next Step</th>
+                      <th style="width: 14.2857%;">Close-out Start Date</th>
+                      <th style="width: 14.2857%;">Last Updated</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +68,7 @@
                     <tr>
                         <!-- Inside the loop where project details are displayed -->
                         <td><a href="/Logged-In/editproject?projectName=<%= project.project_name %>"><%= project.project_name %></a></td>
+                        <td><%= project.drn %> <%= project.stc %> <%= project.drv %></td>
                         <td><%= project.contractor_email %></td>
                         <td><%= project.checked_percentage %>%</td>
                         <td>
@@ -134,7 +136,7 @@
 <script>
     $(document).ready(function() {
         $('#dataTable').DataTable({
-            "order": [[4, "desc"]] // Sort by Close-out Start Date column (index 4) in descending order
+            "order": [[3, "asc"]] // Sort by Close-out Start Date column (index 4) in descending order
         });
     });
 </script>

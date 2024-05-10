@@ -201,6 +201,7 @@ app.post('/forgotpassword', async (req, res) => {
 });
 
 // Middleware to check token validity and expiration
+// Middleware to check token validity and expiration
 app.use('/changepassword/:token', (req, res, next) => {
   const { token } = req.params;
 
@@ -208,6 +209,7 @@ app.use('/changepassword/:token', (req, res, next) => {
     if (err) {
       res.status(401).send('Unauthorized'); // Token is invalid
     } else {
+      // Assign decoded email directly to req.email
       req.email = decoded.email; // Attach decoded email to request object
       next(); // Token is valid, proceed to the next middleware
     }
@@ -393,6 +395,10 @@ app.get("/Logged-In/tutorial-editproject", (req, res) => {
 
 app.get("/Logged-In/tutorial-faq", (req, res) => {
   res.render("Logged-In/tutorial-faq.ejs", { currentPage: "help" });
+});
+
+app.get("/Logged-In/editpassword", (req, res) => {
+  res.render("Logged-In/editpassword.ejs", { currentPage: "settings" });
 });
 
 app.get("/Logged-In/addproject", (req, res) => {

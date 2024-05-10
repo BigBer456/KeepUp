@@ -398,7 +398,37 @@ app.get("/Logged-In/tutorial-faq", (req, res) => {
 });
 
 app.get("/Logged-In/editpassword", (req, res) => {
-  res.render("Logged-In/editpassword.ejs", { currentPage: "settings" });
+  try {
+    // Retrieve the user's email from the session
+    const userEmail = req.session.user.email;
+
+    // Render the "editpassword.ejs" template, passing the user's email and the current page
+    res.render("Logged-In/editpassword.ejs", { currentPage: "settings", userEmail: userEmail });
+  } catch (error) {
+    // Handle any errors that may occur
+    console.error("Error rendering editpassword page:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post('/editpassword', async (req, res) => {
+  try {
+    // Extract email and password from the request body
+    const { email, password } = req.body;
+
+    // Encrypt the new password with bcrypt
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the saltRounds
+
+    // Update the user's password in the database
+    await db.query('UPDATE users SET password = $1 WHERE email = $2', [hashedPassword, email]);
+
+    // Password updated successfully
+    console.log('Password updated successfully for user with email:', email);
+    res.redirect('/Logged-In/settings?successMessage=Password%20changed%20successfully');
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).send('Error updating password');
+  }
 });
 
 app.get("/Logged-In/addproject", (req, res) => {
@@ -1223,6 +1253,13 @@ app.delete('/delete-comment', async (req, res) => {
 
 app.get("/Logged-In/settings", async (req, res) => {
   try {
+    let successMessage = ""; // Initialize an empty success message
+
+    // Check if the success message query parameter is present in the URL
+    if (req.query.successMessage) {
+      successMessage = req.query.successMessage; // Assign the success message from the query parameter
+    }
+
     // Assuming you have a function to query the user's information from the database
     const userInfo = await db.query(`
       SELECT fname, lname, email 
@@ -1236,7 +1273,8 @@ app.get("/Logged-In/settings", async (req, res) => {
         currentPage: "settings", 
         fname: fname, 
         lname: lname, 
-        email: email 
+        email: email,
+        successMessage: successMessage // Pass the success message to the template
       });
     } else {
       // Handle case where user information is not found

@@ -4,6 +4,13 @@
 
 <%- include("../partials/sidebar", { currentPage: "settings" }) %>
 
+<style>
+  .fade-out {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+</style>
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -16,11 +23,14 @@
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <img height="80px" width="270px" src="../images/settings-logo.png.png" alt="KeepUp logo">
+                <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+                  <strong id="successMessage" style="color: green; margin-right: 29rem;"><%= successMessage %></strong>
+              <% } %>              
             </div>
 
         <!-- Form -->
         <div class="container">
-            <p class="lead col-8 mt-4">Please fill out all fields you would like to update. </p>
+            <p class="lead col-8 mt-4">Please fill out all fields you would like to update.</p>
         </div>
 
         <div class="col-8">
@@ -46,7 +56,7 @@
             </div>
             <div class="mb-4">
                 <button type="submit" class="btn btn-primary" style="margin-right: 30px;">Save changes</button>
-                <a href="/editpassword">Want to change password?</a>
+                <a href="/Logged-In/editpassword">Want to change password?</a>
             </div>
         </form>
         </div>
@@ -182,6 +192,27 @@ sidebarToggle.addEventListener("click", function() {
     document.body.classList.toggle("sidebar-collapsed");
 });
 });
+</script>
+
+<!--Password changed notification-->
+<script>
+  // Function to hide the success message after 5 seconds with fade-out animation
+function hideSuccessMessage() {
+  var successMessage = document.getElementById("successMessage");
+  if (successMessage) {
+    setTimeout(function() {
+      successMessage.classList.add('fade-out'); // Add the fade-out class
+      setTimeout(function() {
+        successMessage.style.display = 'none'; // Hide the success message after the animation completes
+      }, 1000); // Wait for 1 second (equal to the transition duration)
+    }, 5000); // Wait for 5 seconds before starting the animation
+  }
+}
+
+// Call the hideSuccessMessage function when the page loads
+window.onload = function() {
+  hideSuccessMessage();
+};
 </script>
     
 <!-- Bootstrap core JavaScript-->

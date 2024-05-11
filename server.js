@@ -85,6 +85,10 @@ app.get("/learnmore", (req, res) => {
   res.render("learnmore.ejs");
 });
 
+app.get("/gallery", (req, res) => {
+  res.render("gallery.ejs");
+});
+
 app.get("/forgotpassword", (req, res) => {
   res.render("forgotpassword.ejs");
 });
@@ -565,7 +569,7 @@ let projects = [];
 
 app.get("/Logged-In/dashboard", async (req, res) => {
   try {
-    const user_email = req.session.user.email; // Get the current user's email
+    const user_company = req.session.user.company; // Get the current user's company
 
     const result = await db.query(`
       SELECT 
@@ -635,9 +639,9 @@ app.get("/Logged-In/dashboard", async (req, res) => {
         p.drn, p.stc, p.drv, -- Fetch drn, stc, drv values
         p.a4, p.a5 -- Fetch a4 and a5 values
       FROM projects p
-      INNER JOIN users u ON p.company = u.company
-      WHERE u.email = $1; -- Filter projects by user's email
-    `, [user_email]);
+      INNER JOIN users u ON p.user_email = u.email -- Join projects and users table based on user_email
+      WHERE u.company = $1; -- Filter projects by user's company
+    `, [user_company]);
 
     const projects = result.rows;
 
@@ -647,6 +651,7 @@ app.get("/Logged-In/dashboard", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
@@ -750,7 +755,7 @@ app.get("/Logged-In/myprojects", async (req, res) => {
 //Active Projects Table
 app.get("/Logged-In/activeprojects", async (req, res) => {
   try {
-    const user_email = req.session.user.email; // Get the current user's email
+    const user_company = req.session.user.company; // Get the current user's company
 
     const result = await db.query(`
       SELECT 
@@ -821,9 +826,9 @@ app.get("/Logged-In/activeprojects", async (req, res) => {
         TO_CHAR(p.edit_timestamp, 'MM/DD/YY') AS edit_timestamp,
         CONCAT(u.fname, ' ', LEFT(u.lname, 1), '.') AS running_by
       FROM projects p
-      INNER JOIN users u ON p.company = u.company -- Join on company column
-      WHERE u.email = $1; -- Filter by user's email
-    `, [user_email]);
+      INNER JOIN users u ON p.user_email = u.email -- Join on user_email column
+      WHERE u.company = $1; -- Filter projects by user's company
+    `, [user_company]);
 
     const projects = result.rows;
 
@@ -833,6 +838,7 @@ app.get("/Logged-In/activeprojects", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 

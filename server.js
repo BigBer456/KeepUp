@@ -435,8 +435,19 @@ app.post('/editpassword', async (req, res) => {
   }
 });
 
-app.get("/Logged-In/addproject", (req, res) => {
-  res.render("Logged-In/addproject.ejs", { currentPage: "addproject" });
+app.get("/Logged-In/addproject", async (req, res) => {
+  try {
+    // Fetch user's first name from the session
+    const { fname } = req.session.user;
+    
+    res.render("Logged-In/addproject.ejs", { 
+      currentPage: "addproject",
+      userName: fname // Pass the first name to the template
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // Add A Project

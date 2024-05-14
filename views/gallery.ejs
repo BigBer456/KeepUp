@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KeepUp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
 
   <style>
@@ -20,6 +22,10 @@
         margin: 10px;
         text-align: center;
     }
+    .row:hover {
+    background-color: rgba(221, 226, 242, 0.30); /* Adjust the color and opacity as needed */
+}
+
   </style>
 
       <!--Top Navbar-->
@@ -59,6 +65,9 @@
         .bg123{
             min-width: 100%;
         }
+        .custom-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Customize the shadow values as needed */
+}
     </style>
       
       <main>
@@ -124,72 +133,207 @@
       </div>
       <!--End of Carousel-->
 
+      <hr class="featurette-divider">
+
       <br><br>
 
       <!-- START THE FEATURETTES -->
       <div class="container">
-        <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">KeepUp Dashboard</h2>
+      <!--First Feature-->
+      <div id="dashboardContent" class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded-3" style="transition: background-color 0.5s; overflow: hidden;">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img id="change-image" src="./images/dash1.png" class="d-block mx-lg-auto img-fluid custom-shadow rounded-3" alt="Bootstrap Themes" loading="lazy">
         </div>
-        <div class="col-md-5">
-          <img width="700" height="400" src="./images/dash.png" alt="picture of documents">
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">KeepUp Dashboard</h1>
+            <p class="lead" id="originalText">
+                The KeepUp Dashboard offers users a comprehensive view of project progress, facilitating efficient tracking and preventing delays. Its straightforward layout ensures easy navigation and enables users to stay on top of project milestones.
+            </p>
+            <ul id="newList" style="display: none;">
+                <li>
+                    <p>
+                        The KeepUp Dashboard allows users to see the current progress of each project. The simplicity of its layout creates an easy-to-read environment and prevents any project from falling behind.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        The Dashboard also includes the "Next-Step" feature which assists users in navigating through the complicated process. This maps out the close-out process and tells users what they will need to do next or if they need to wait for a response.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        The Dashboard table lays out each aspect of the close-out process from the percentage complete to who is in charge of closing out the project. With each aspect of the close-out process laid out in front of you, you can easily track progress and ensure timely completion of project milestones.
+                    </p>
+                </li>
+                <!-- Add more list items as needed -->
+            </ul>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <button id="toggleButton" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+            </div>
         </div>
-      </div>
-
-      <br><br>
-
-      <hr class="featurette-divider">
-
-      <br><br>
-
-      <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading fw-normal lh-1">Stay Ahead. <span class="text-body-secondary">Revolutionizing Closeout Management.</span></h2>
-          <p class="lead">KeepUp offers a comprehensive suite of features designed to streamline closeout management for construction companies. Its document checklist feature ensures that all necessary paperwork is accounted for, guiding users through each step of the process with ease. Additionally, KeepUp provides real-time updates on the percent completion of closeout tasks, allowing project managers to track progress effortlessly. One of its standout capabilities is its auto email functionality, which automates communication with clients, saving valuable time and ensuring prompt follow-ups. Moreover, KeepUp simplifies document handling by automatically uploading received documentation, eliminating manual data entry and minimizing the risk of errors. With its robust set of features, KeepUp empowers construction companies to efficiently navigate the closeout process, enhance productivity, and deliver projects with confidence.</p>
-        </div>
-        <div class="col-md-5 order-md-1">
-          <img width="500" height="500" src="./images/features2.png" alt="picture of documents">
-        </div>
-      </div>
-
-      <br><br>
-
-      <hr class="featurette-divider">
-
-      <br><br>
+    </div>    
     
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading fw-normal lh-1">Empower Your Team. <span class="text-body-secondary">A Collaborative Platform.</span></h2>
-          <p class="lead">As the backbone of modern construction project management, KeepUp goes beyond just streamlining the closeout process. Its collaborative platform fosters teamwork and communication, empowering every member of your construction team to contribute effectively to project success. With real-time updates, document sharing, and task assignment features, KeepUp ensures that everyone stays on the same page, driving productivity and cohesion across your organization. Say goodbye to siloed information and missed deadlines – with KeepUp, your team can work together seamlessly towards achieving your project goals.</p>
-        </div>
-        <div class="col-md-5">
-          <img width="500" height="500" src="./images/features3.png" alt="picture of documents">
-        </div>
-      </div>
-
-      <br><br>
 
       <hr class="featurette-divider">
 
       <br><br>
 
-      <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading fw-normal lh-1">Stay Ahead. <span class="text-body-secondary">Revolutionizing Closeout Management.</span></h2>
-          <p class="lead">KeepUp offers a comprehensive suite of features designed to streamline closeout management for construction companies. Its document checklist feature ensures that all necessary paperwork is accounted for, guiding users through each step of the process with ease. Additionally, KeepUp provides real-time updates on the percent completion of closeout tasks, allowing project managers to track progress effortlessly. One of its standout capabilities is its auto email functionality, which automates communication with clients, saving valuable time and ensuring prompt follow-ups. Moreover, KeepUp simplifies document handling by automatically uploading received documentation, eliminating manual data entry and minimizing the risk of errors. With its robust set of features, KeepUp empowers construction companies to efficiently navigate the closeout process, enhance productivity, and deliver projects with confidence.</p>
+      <!--Second Feature-->
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded" style="transition: background-color 0.5s;">
+  <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 text-lg-end">My Projects Layout</h1>
+      <p class="lead text-lg-end" id="originalText2">
+        The My Projects section in KeepUp facilitates efficient project monitoring and management, 
+        enabling users to oversee ongoing projects and seamlessly update their progress. By providing 
+        a centralized platform to track project status, edit details, and transfer ownership, it 
+        streamlines the close-out process, ensuring tasks are completed systematically and no critical 
+        steps are overlooked.
+      </p>
+      <ul id="newList2" style="display: none;">
+          <li>
+              <p>
+                  The My Projects Layout feature enables users to organize their projects efficiently, 
+                  enhancing productivity and workflow management.
+              </p>
+          </li>
+          <li>
+              <p>
+                The My Projects section empowers users to effortlessly navigate through project details, 
+                where a simple click on a project name leads to an intuitive interface for updating 
+                progress, viewing upcoming tasks, and tracking completed milestones.
+              </p>
+          </li>
+          <li>
+              <p>
+                With automated updates and dynamic tracking features, KeepUp's My Projects section 
+                simplifies project management by guiding users through each step of the close-out process, 
+                ensuring clarity on tasks, and providing real-time visibility to team members.
+              </p>
+          </li>
+          <!-- Add more list items as needed -->
+      </ul>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button id="toggleButton2" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+      </div>
+  </div>
+  <div class="col-10 col-sm-8 col-lg-6">
+      <img id="change-image2" src="./images/myprojects1.png" class="d-block mx-lg-auto img-fluid custom-shadow rounded-3" alt="Bootstrap Themes" loading="lazy">
+  </div>
+</div>
+
+      <hr class="featurette-divider">
+
+      <br><br>
+
+      <!--Third Feature-->
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded" style="transition: background-color 0.5s;">
+  <div class="col-10 col-sm-8 col-lg-6">
+      <img id="change-image3" src="./images/addproject1.png" class="d-block mx-lg-auto img-fluid custom-shadow rounded-3" alt="Bootstrap Themes" loading="lazy">
+  </div>
+  <div class="col-lg-6">
+      <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Easily Add a Project</h1>
+      <p class="lead">
+        The Add Projects section in KeepUp offers a seamless experience for users to effortlessly initiate 
+        new projects, regardless of their current phase in the close-out process. Its intuitive design 
+        ensures user-friendliness, making project addition a straightforward task for all users.
+      </p>
+      <ul id="newList3" style="display: none;">
+          <li>
+              <p>
+                  The Add a Project feature allows users to effortlessly create new projects, streamlining 
+                  the project initiation process and saving time.
+              </p>
+          </li>
+          <li>
+              <p>
+                KeepUp's intuitive interface automates project addition, simplifying the process and 
+                removing any confusing steps for users.
+              </p>
+          </li>
+          <li>
+              <p>
+                With KeepUp's smart functionality, new close-outs trigger automated emails to 
+                contractors, detailing essential project information and next steps, ensuring seamless 
+                communication and efficient project initiation.
+              </p>
+          </li>
+          <!-- Add more list items as needed -->
+      </ul>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <button id="toggleButton3" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+      </div>
+  </div>
+</div>
+
+      <hr class="featurette-divider">
+
+      <br><br>
+
+      <!--Fourth Feature-->
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5 rounded" style="transition: background-color 0.5s;">
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 text-lg-end">Keep Track with</h1>
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3 text-lg-end">Active Projects</h1>
+            <p class="lead text-lg-end" id="originalText4">
+              The Active Projects section of KeepUp provides users with a comprehensive overview of ongoing close-outs 
+              across the company. Easily track the progress of each project, ensuring smooth coordination and timely 
+              completion.
+            </p>
+            <ul id="newList4" style="display: none;">
+                <li>
+                    <p>
+                      Keep track of the progress of each active project with clear visibility into the percentage completion.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                      Easily monitor the status of every close-out process, providing insight into the current stage of each project.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                      Collaborate effectively by leaving comments on projects, fostering coordination and communication among team members.
+                    </p>
+                </li>
+                <!-- Add more list items as needed -->
+            </ul>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button id="toggleButton4" class="btn btn-primary btn-lg px-4 me-md-2">Learn More</button>
+            </div>
         </div>
-        <div class="col-md-5 order-md-1">
-          <img width="500" height="500" src="./images/features2.png" alt="picture of documents">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img id="change-image4" src="./images/bar-chart.png" class="d-block mx-lg-auto img-fluid custom-shadow rounded-3" alt="Bootstrap Themes" loading="lazy">
+        </div>
+    </div>
+
+      <hr class="featurette-divider">
+
+      <br><br>
+
+      <!--Get your code today!-->
+    <div class="px-4 pt-5 mt-5 mb-3 text-center border-bottom rounded" style="transition: background-color 0.5s;">
+      <h1 class="display-4 fw-bold text-body-emphasis">Work with KeepUp Today!</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">
+          Join the KeepUp community today by signing up! Get access to powerful project management tools 
+          and optimize your workflow effortlessly.</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          <button id="getCompanyCodeBtn" type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Get Company Code</button>
+          <button id="signUpBtn" type="button" class="btn btn-outline-secondary btn-lg px-4">Sign Up</button>
         </div>
       </div>
+      <div class="overflow-hidden" style="max-height: 40vh;">
+        <div class="container px-5">
+          <img src="./images/loginss.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+        </div>
+      </div>
+    </div>
       </div>
       <!-- /END THE FEATURETTES -->
     
       <!--Footer-->
-      <div class="container" style="margin-top: 5rem;">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center my-4 border-top">
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center mb-4">
           <p class="col-md-4 mb-0 text-body-secondary">©KeepUp 2024</p>
           <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
               <img class="bi me-2" width="80" height="50" src="../images/logo_arrow.png.png" alt="Arrow logo">
@@ -205,6 +349,178 @@
       </div>
 
     </main>  
+
+    <!--First Feature JS-->
+    <script>
+      $(document).ready(function() {
+    $('#toggleButton').on('click', function() {
+        var button = $(this);
+
+        // Check the current text of the button
+        var buttonText = button.text();
+
+        // Determine the source for the image
+        var newSrc = $('#change-image').attr('src') === './images/dash1.png' ? './images/dash.png' : './images/dash1.png';
+
+        // Determine the text for the button
+        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+
+        // Toggle the button text with fade effect
+        button.fadeOut("slow", function() {
+            $(this).text(newButtonText).fadeIn("slow");
+        });
+
+        // Toggle the image source with fade effect
+        $("#change-image").fadeOut("slow", function() {
+            $('#change-image').attr('src', newSrc).fadeIn("slow");
+        });
+
+        // Toggle the text elements based on the button text
+        if (buttonText === "Learn More") {
+            $('#originalText').fadeOut("slow", function() {
+                $('#newList').fadeIn("slow");
+            });
+        } else {
+            $('#newList').fadeOut("slow", function() {
+                $('#originalText').fadeIn("slow");
+            });
+        }
+    });
+});
+  </script>
+
+  <!--Second Feature JS-->
+  <script>
+    $(document).ready(function() {
+    $('#toggleButton2').on('click', function() {
+        var button = $(this);
+
+        // Check the current text of the button
+        var buttonText = button.text();
+
+        // Determine the source for the image
+        var newSrc = $('#change-image2').attr('src') === './images/myprojects1.png' ? './images/myprojects.png' : './images/myprojects1.png';
+
+        // Determine the text for the button
+        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+
+        // Toggle the button text with fade effect
+        button.fadeOut("slow", function() {
+            $(this).text(newButtonText).fadeIn("slow");
+        });
+
+        // Toggle the image source with fade effect
+        $("#change-image2").fadeOut("slow", function() {
+            $('#change-image2').attr('src', newSrc).fadeIn("slow");
+        });
+
+        // Toggle the text elements based on the button text
+        if (buttonText === "Learn More") {
+            $('#originalText2').fadeOut("slow", function() {
+                $('#newList2').fadeIn("slow");
+            });
+        } else {
+            $('#newList2').fadeOut("slow", function() {
+                $('#originalText2').fadeIn("slow");
+            });
+        }
+    });
+});
+  </script>
+
+  <!--Third Feature JS-->
+  <script>
+    $(document).ready(function() {
+    $('#toggleButton3').on('click', function() {
+        var button = $(this);
+
+        // Check the current text of the button
+        var buttonText = button.text();
+
+        // Determine the source for the image
+        var newSrc = $('#change-image3').attr('src') === './images/addproject1.png' ? './images/addproject2.png' : './images/addproject1.png';
+
+        // Determine the text for the button
+        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+
+        // Toggle the button text with fade effect
+        button.fadeOut("slow", function() {
+            $(this).text(newButtonText).fadeIn("slow");
+        });
+
+        // Toggle the image source with fade effect
+        $("#change-image3").fadeOut("slow", function() {
+            $('#change-image3').attr('src', newSrc).fadeIn("slow");
+        });
+
+        // Toggle the text elements based on the button text
+        if (buttonText === "Learn More") {
+            $('.lead').fadeOut("slow", function() {
+                $('#newList3').fadeIn("slow");
+            });
+        } else {
+            $('#newList3').fadeOut("slow", function() {
+                $('.lead').fadeIn("slow");
+            });
+        }
+    });
+});
+</script>
+
+<!--Forth Feature JS-->
+<script>
+  $(document).ready(function() {
+    $('#toggleButton4').on('click', function() {
+        var button = $(this);
+
+        // Check the current text of the button
+        var buttonText = button.text();
+
+        // Determine the source for the image
+        var newSrc = $('#change-image4').attr('src') === './images/bar-chart.png' ? './images/activeprojects2.png' : './images/bar-chart.png';
+
+        // Determine the text for the button
+        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+
+        // Toggle the button text with fade effect
+        button.fadeOut("slow", function() {
+            $(this).text(newButtonText).fadeIn("slow");
+        });
+
+        // Toggle the image source with fade effect
+        $("#change-image4").fadeOut("slow", function() {
+            $('#change-image4').attr('src', newSrc).fadeIn("slow");
+        });
+
+        // Toggle the text elements based on the button text
+        if (buttonText === "Learn More") {
+            $('#originalText4').fadeOut("slow", function() {
+                $('#newList4').fadeIn("slow");
+            });
+        } else {
+            $('#newList4').fadeOut("slow", function() {
+                $('#originalText4').fadeIn("slow");
+            });
+        }
+    });
+});
+</script>
+
+<!--Redirect to Company Codes-->
+<script>
+  document.getElementById("getCompanyCodeBtn").addEventListener("click", function() {
+        // Redirect to the companycodes page
+        window.location.href = "/getquote"; // Replace "companycodes.html" with the actual URL of your company codes page
+    });
+</script>
+
+<!--Redirect to Sign Up-->
+<script>
+  document.getElementById("signUpBtn").addEventListener("click", function() {
+      // Redirect to the "/signup" page
+      window.location.href = "/signup"; // Replace "/signup" with the actual URL you want to redirect to
+  });
+</script>
 
     <!--Bootstrap Links-->
     <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

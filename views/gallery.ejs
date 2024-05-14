@@ -353,158 +353,182 @@
     <!--First Feature JS-->
     <script>
       $(document).ready(function() {
-    $('#toggleButton').on('click', function() {
-        var button = $(this);
-
-        // Check the current text of the button
-        var buttonText = button.text();
-
-        // Determine the source for the image
-        var newSrc = $('#change-image').attr('src') === './images/dash1.png' ? './images/dash.png' : './images/dash1.png';
-
-        // Determine the text for the button
-        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
-
-        // Toggle the button text with fade effect
-        button.fadeOut("slow", function() {
-            $(this).text(newButtonText).fadeIn("slow");
-        });
-
-        // Toggle the image source with fade effect
-        $("#change-image").fadeOut("slow", function() {
-            $('#change-image').attr('src', newSrc).fadeIn("slow");
-        });
-
-        // Toggle the text elements based on the button text
-        if (buttonText === "Learn More") {
-            $('#originalText').fadeOut("slow", function() {
-                $('#newList').fadeIn("slow");
-            });
-        } else {
-            $('#newList').fadeOut("slow", function() {
-                $('#originalText').fadeIn("slow");
-            });
-        }
-    });
-});
-  </script>
+          // Preload images
+          var image1 = new Image();
+          image1.src = './images/dash.png';
+          var image2 = new Image();
+          image2.src = './images/dash1.png';
+      
+          $('#toggleButton').on('click', function() {
+              var button = $(this);
+      
+              // Check the current text of the button
+              var buttonText = button.text();
+      
+              // Determine the source for the image
+              var newSrc = $('#change-image').attr('src') === './images/dash1.png' ? './images/dash.png' : './images/dash1.png';
+      
+              // Determine the text for the button
+              var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+      
+              // Toggle the button text with fade effect
+              button.fadeOut("slow", function() {
+                  $(this).text(newButtonText).fadeIn("slow");
+              });
+      
+              // Toggle the image source with fade effect
+              $("#change-image").fadeOut("slow", function() {
+                  $(this).attr('src', newSrc).fadeIn("slow");
+              });
+      
+              // Toggle the text elements based on the button text
+              if (buttonText === "Learn More") {
+                  $('#originalText').fadeOut("slow", function() {
+                      $('#newList').fadeIn("slow");
+                  });
+              } else {
+                  $('#newList').fadeOut("slow", function() {
+                      $('#originalText').fadeIn("slow");
+                  });
+              }
+          });
+      });
+      </script>      
 
   <!--Second Feature JS-->
   <script>
     $(document).ready(function() {
-    $('#toggleButton2').on('click', function() {
-        var button = $(this);
-
-        // Check the current text of the button
-        var buttonText = button.text();
-
-        // Determine the source for the image
-        var newSrc = $('#change-image2').attr('src') === './images/myprojects1.png' ? './images/myprojects.png' : './images/myprojects1.png';
-
-        // Determine the text for the button
-        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
-
-        // Toggle the button text with fade effect
-        button.fadeOut("slow", function() {
-            $(this).text(newButtonText).fadeIn("slow");
-        });
-
-        // Toggle the image source with fade effect
-        $("#change-image2").fadeOut("slow", function() {
-            $('#change-image2').attr('src', newSrc).fadeIn("slow");
-        });
-
-        // Toggle the text elements based on the button text
-        if (buttonText === "Learn More") {
-            $('#originalText2').fadeOut("slow", function() {
-                $('#newList2').fadeIn("slow");
+        // Preload images
+        var image1 = new Image();
+        image1.src = './images/myprojects.png';
+        var image2 = new Image();
+        image2.src = './images/myprojects1.png';
+    
+        $('#toggleButton2').on('click', function() {
+            var button = $(this);
+    
+            // Check the current text of the button
+            var buttonText = button.text();
+    
+            // Determine the source for the image
+            var newSrc = $('#change-image2').attr('src') === './images/myprojects1.png' ? './images/myprojects.png' : './images/myprojects1.png';
+    
+            // Determine the text for the button
+            var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+    
+            // Toggle the button text with fade effect
+            button.fadeOut("slow", function() {
+                $(this).text(newButtonText).fadeIn("slow");
             });
-        } else {
-            $('#newList2').fadeOut("slow", function() {
-                $('#originalText2').fadeIn("slow");
+    
+            // Toggle the image source with fade effect
+            $("#change-image2").fadeOut("slow", function() {
+                $(this).attr('src', newSrc).fadeIn("slow");
             });
-        }
+    
+            // Toggle the text elements based on the button text
+            if (buttonText === "Learn More") {
+                $('#originalText2').fadeOut("slow", function() {
+                    $('#newList2').fadeIn("slow");
+                });
+            } else {
+                $('#newList2').fadeOut("slow", function() {
+                    $('#originalText2').fadeIn("slow");
+                });
+            }
+        });
     });
-});
-  </script>
+    </script>    
 
   <!--Third Feature JS-->
   <script>
     $(document).ready(function() {
-    $('#toggleButton3').on('click', function() {
-        var button = $(this);
-
-        // Check the current text of the button
-        var buttonText = button.text();
-
-        // Determine the source for the image
-        var newSrc = $('#change-image3').attr('src') === './images/addproject1.png' ? './images/addproject2.png' : './images/addproject1.png';
-
-        // Determine the text for the button
-        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
-
-        // Toggle the button text with fade effect
-        button.fadeOut("slow", function() {
-            $(this).text(newButtonText).fadeIn("slow");
-        });
-
-        // Toggle the image source with fade effect
-        $("#change-image3").fadeOut("slow", function() {
-            $('#change-image3').attr('src', newSrc).fadeIn("slow");
-        });
-
-        // Toggle the text elements based on the button text
-        if (buttonText === "Learn More") {
-            $('.lead').fadeOut("slow", function() {
-                $('#newList3').fadeIn("slow");
+        // Preload images
+        var image1 = new Image();
+        image1.src = './images/addproject1.png';
+        var image2 = new Image();
+        image2.src = './images/addproject2.png';
+    
+        $('#toggleButton3').on('click', function() {
+            var button = $(this);
+    
+            // Check the current text of the button
+            var buttonText = button.text();
+    
+            // Determine the source for the image
+            var newSrc = $('#change-image3').attr('src') === './images/addproject1.png' ? './images/addproject2.png' : './images/addproject1.png';
+    
+            // Determine the text for the button
+            var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+    
+            // Toggle the button text with fade effect
+            button.fadeOut("slow", function() {
+                $(this).text(newButtonText).fadeIn("slow");
             });
-        } else {
-            $('#newList3').fadeOut("slow", function() {
-                $('.lead').fadeIn("slow");
+    
+            // Toggle the image source with fade effect
+            $("#change-image3").fadeOut("slow", function() {
+                $(this).attr('src', newSrc).fadeIn("slow");
             });
-        }
+    
+            // Toggle the text elements based on the button text
+            if (buttonText === "Learn More") {
+                $('.lead').fadeOut("slow", function() {
+                    $('#newList3').fadeIn("slow");
+                });
+            } else {
+                $('#newList3').fadeOut("slow", function() {
+                    $('.lead').fadeIn("slow");
+                });
+            }
+        });
     });
-});
-</script>
+    </script>    
 
 <!--Forth Feature JS-->
 <script>
   $(document).ready(function() {
-    $('#toggleButton4').on('click', function() {
-        var button = $(this);
-
-        // Check the current text of the button
-        var buttonText = button.text();
-
-        // Determine the source for the image
-        var newSrc = $('#change-image4').attr('src') === './images/bar-chart.png' ? './images/activeprojects2.png' : './images/bar-chart.png';
-
-        // Determine the text for the button
-        var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
-
-        // Toggle the button text with fade effect
-        button.fadeOut("slow", function() {
-            $(this).text(newButtonText).fadeIn("slow");
-        });
-
-        // Toggle the image source with fade effect
-        $("#change-image4").fadeOut("slow", function() {
-            $('#change-image4').attr('src', newSrc).fadeIn("slow");
-        });
-
-        // Toggle the text elements based on the button text
-        if (buttonText === "Learn More") {
-            $('#originalText4').fadeOut("slow", function() {
-                $('#newList4').fadeIn("slow");
-            });
-        } else {
-            $('#newList4').fadeOut("slow", function() {
-                $('#originalText4').fadeIn("slow");
-            });
-        }
-    });
-});
-</script>
+      // Preload images
+      var image1 = new Image();
+      image1.src = './images/bar-chart.png';
+      var image2 = new Image();
+      image2.src = './images/activeprojects2.png';
+  
+      $('#toggleButton4').on('click', function() {
+          var button = $(this);
+  
+          // Check the current text of the button
+          var buttonText = button.text();
+  
+          // Determine the source for the image
+          var newSrc = $('#change-image4').attr('src') === './images/bar-chart.png' ? './images/activeprojects2.png' : './images/bar-chart.png';
+  
+          // Determine the text for the button
+          var newButtonText = buttonText === "Learn More" ? "Back" : "Learn More";
+  
+          // Toggle the button text with fade effect
+          button.fadeOut("slow", function() {
+              $(this).text(newButtonText).fadeIn("slow");
+          });
+  
+          // Toggle the image source with fade effect
+          $("#change-image4").fadeOut("slow", function() {
+              $(this).attr('src', newSrc).fadeIn("slow");
+          });
+  
+          // Toggle the text elements based on the button text
+          if (buttonText === "Learn More") {
+              $('#originalText4').fadeOut("slow", function() {
+                  $('#newList4').fadeIn("slow");
+              });
+          } else {
+              $('#newList4').fadeOut("slow", function() {
+                  $('#originalText4').fadeIn("slow");
+              });
+          }
+      });
+  });
+  </script>  
 
 <!--Redirect to Company Codes-->
 <script>

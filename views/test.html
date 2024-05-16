@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expandable Div</title>
+<style>
+  .expandable-div {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    height: 20px; /* Set initial height */
+    transition: height 0.5s ease;
+  }
+  .expandable-div.expanded {
+    height: 60px; /* Adjust to maximum height needed */
+  }
+  .content {
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="expandable-div" onclick="toggleExpand(this)">
+  Click to expand
+  <div class="content" style="display: none;">
+    Additional text that will be revealed.
+  </div>
+</div>
+
+<script>
+  function toggleExpand(element) {
+    const content = element.querySelector('.content');
+    const expanded = element.classList.toggle('expanded');
+    if (expanded) {
+      content.style.display = 'block';
+      element.style.height = '60px'; /* Set expanded height */
+    } else {
+      element.style.height = '20px'; /* Set initial height */
+      setTimeout(() => {
+        content.style.display = 'none';
+      }, 500); // Delay hiding the content by 500 milliseconds (same as transition duration)
+    }
+  }
+</script>
+
+</body>
+</html>

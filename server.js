@@ -85,6 +85,10 @@ app.get("/learnmore", (req, res) => {
   res.render("learnmore.ejs");
 });
 
+app.get("/FAQs", (req, res) => {
+  res.render("faqs.ejs");
+});
+
 app.get("/gallery", (req, res) => {
   res.render("gallery.ejs");
 });

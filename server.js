@@ -89,6 +89,10 @@ app.get("/FAQs", (req, res) => {
   res.render("faqs.ejs");
 });
 
+app.get("/ContactUs", (req, res) => {
+  res.render("contactus.ejs");
+});
+
 app.get("/gallery", (req, res) => {
   res.render("gallery.ejs");
 });

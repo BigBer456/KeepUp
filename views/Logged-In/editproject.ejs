@@ -63,7 +63,6 @@
             <div id="content">
 
                 
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -149,19 +148,19 @@
             <div class="modal-body">
                 <form id="editProjectForm" action="/Logged-In/editproject" method="post">
                     <div class="form-group">
-                      <label for="projectName">Project Name</label>
+                      <label for="projectName2">Project Name</label>
                       <input type="text" class="form-control" id="projectName2" name="updatedProjectName" value="<%= projectName %>" autocomplete="off">
                     </div>
                     <div class="form-group">
-                        <label for="projectName">DRN</label>
+                        <label for="drn">DRN</label>
                         <input type="text" class="form-control" id="drn" name="updateddrn" value="<%= project.drn %>" autocomplete="off">
                       </div>
                       <div class="form-group">
-                        <label for="projectName">STC</label>
+                        <label for="stc">STC</label>
                         <input type="text" class="form-control" id="stc" name="updatedstc" value="<%= project.stc %>" autocomplete="off">
                       </div>
                       <div class="form-group">
-                        <label for="projectName">DRV</label>
+                        <label for="drv">DRV</label>
                         <input type="text" class="form-control" id="drv" name="updateddrv" value="<%= project.drv %>" autocomplete="off">
                       </div>
                     <div class="form-group">
@@ -291,37 +290,37 @@
                                 <!--Section D-->
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d1" name="d1" <%= project.d1 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d1" name="d1" <%= project.d1 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d1">
                                             <span class="checkbox-text">Has the contractor sent DDSS documents?</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d2" name="d2" <%= project.d2 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d2" name="d2" <%= project.d2 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d2">
                                             <span class="checkbox-text">Has the contractor sent reproducible plans (.pdf)?</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d3" name="d3" <%= project.d3 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d3" name="d3" <%= project.d3 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d3">
                                             <span class="checkbox-text">Has the contractor sent digital plan data CAD (.dwg)?</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d4" name="d4" <%= project.d4 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d4" name="d4" <%= project.d4 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d4">
                                             <span class="checkbox-text">Has the contractor sent GIS data (attributes table)?</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d5" name="d5" <%= project.d5 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d5" name="d5" <%= project.d5 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d5">
                                             <span class="checkbox-text">Has the contractor sent O&M manuals or is N/A?</span>
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="d6" name="d6" <%= project.d6 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="d6" name="d6" <%= project.d6 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="d6">
                                             <span class="checkbox-text">Has the contractor sent DDS Checklist?</span>
                                         </label>
@@ -337,19 +336,19 @@
                                 <!--Section E-->                      
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="e1" name="e1" <%= project.e1 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="e1" name="e1" <%= project.e1 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="e1">
                                             <span class="checkbox-text">Has the email containing all DDSS documents been sent to the City?</span>
                                         </label>
                                     </div>
                                     <div class="form-check mt-3">
-                                        <input class="form-check-input" type="checkbox" id="e2" name="e2" <%= project.e2 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="e2" name="e2" <%= project.e2 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="e2">
                                             <span class="checkbox-text">Has the City approved alldocuments submitted?</span>
                                         </label>
                                     </div>
                                     <div class="form-check mt-3">
-                                        <input class="form-check-input" type="checkbox" id="e3" name="e3" <%= project.e3 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="e3" name="e3" <%= project.e3 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="e3">
                                             <span class="checkbox-text">Has the approval letter been uploaded to sharefile?</span>
                                         </label>
@@ -358,13 +357,13 @@
                                 <!--Section F-->                      
                                 <td>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="f1" name="f1" <%= project.f1 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="f1" name="f1" <%= project.f1 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="f1">
                                             <span class="checkbox-text">Has the affidavit been signed and noterized?</span>
                                         </label>
                                     </div>
                                     <div class="form-check mt-3">
-                                        <input class="form-check-input" type="checkbox" id="f2" name="f2" <%= project.f2 ? 'checked' : '' %>>
+                                        <input class="form-check-input" type="checkbox" id="f2" name="f2" <%= project.f2 ? 'checked' : '' %> onclick="logCheckbox(this)">
                                         <label class="form-check-label" for="f2">
                                             <span class="checkbox-text">Has the signed affidavit been submitted to the city?</span>
                                         </label>
@@ -454,7 +453,7 @@
                     <span style="color: red; display: none;" id="PassErr">Please input passoword</span>
                     <span style="color: red; display: none;" id="wrongPassErr">Incorrect Password</span>
                     <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Password" autocomplete="off">
-                    <input type="hidden" name="projectName" id="projectNameInput">
+                    <input type="hidden" name="projectName" id="projectNameInput2">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelBtn">Cancel</button>
@@ -816,7 +815,7 @@ function updateProgressBar() {
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../js/sb-admin-2.min.js"></script>
+<!-- <script src="../js/sb-admin-2.min.js"></script> -->
 
 <!-- Page level plugins -->
 <script src="../vendor/datatables/jquery.dataTables.min.js"></script>

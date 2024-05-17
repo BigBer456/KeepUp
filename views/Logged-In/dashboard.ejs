@@ -23,6 +23,34 @@
 
             <%- include("../partials/table.ejs") %>
 
+            <!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    var dataTable = $('#dataTable').DataTable({
+        "order": [[0, "asc"]] // Sort by Close-out Start Date column (index 4) in descending order
+    });
+
+    // Add an event listener to the search input field
+    $('#dataTable_filter input').on('keyup', function () {
+        var searchText = $(this).val().trim();
+        if (searchText !== '') {
+            // Escape special characters in the search text
+            var escapedSearchText = searchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            // Create a regular expression for partial match at the beginning of the word
+            var regex = '\\b' + escapedSearchText;
+            dataTable.search(regex, true, false).draw();
+        } else {
+            // If the search input is empty, reset the table search
+            dataTable.search('').draw();
+        }
+    });
+});
+</script>
+
 </div>
 <!-- /.container-fluid -->
 
@@ -116,7 +144,7 @@ sidebarToggle.addEventListener("click", function() {
 
 <!-- Page level custom scripts -->
 <script src="../js/demo/datatables-demo.js"></script>
-           
+
 
 </body>
 

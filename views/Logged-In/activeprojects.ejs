@@ -120,10 +120,25 @@
 
 <script>
     $(document).ready(function() {
-        $('#dataTable').DataTable({
-            "order": [[6, "desc"]] // Sort by Close-out Start Date column (index 4) in descending order
-        });
+    var dataTable = $('#dataTable').DataTable({
+        "order": [[6, "desc"]] // Sort by Close-out Start Date column (index 6) in descending order
     });
+
+    // Add an event listener to the search input field
+    $('#dataTable_filter input').on('keyup', function () {
+        var searchText = $(this).val().trim();
+        if (searchText !== '') {
+            // Escape special characters in the search text
+            var escapedSearchText = searchText.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            // Create a regular expression for partial match at the beginning of the word
+            var regex = '\\b' + escapedSearchText;
+            dataTable.search(regex, true, false).draw();
+        } else {
+            // If the search input is empty, reset the table search
+            dataTable.search('').draw();
+        }
+    });
+});
 </script>
 
 </div>

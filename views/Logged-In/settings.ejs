@@ -38,18 +38,18 @@
             <form class="needs-validation container" id="myForm" action="/edituserinfo" method="POST">
             <div class="">
                 <div class="mb-4">
-                    <label for="pName" class="form-label">First Name <span id="fNameErr" style="color: red; display: none;">Please fill out this field</span></label>
+                    <label for="fName" class="form-label">First Name <span id="fNameErr" style="color: red; display: none;">Please fill out this field</span></label>
                     <input type="text" class="form-control" id="fName" name="firstName" value="<%= fname %>">
                 </div>
 
             <div class="mb-4">
-                <label for="pName" class="form-label">Last Name <span id="lNameErr" style="color: red; display: none;">Please fill out this field</span></label>
+                <label for="lName" class="form-label">Last Name <span id="lNameErr" style="color: red; display: none;">Please fill out this field</span></label>
                 <input type="text" class="form-control" id="lName" name="lastName" value="<%= lname %>">
             </div>
 
             <div class="mb-4">
                 <label for="email" class="form-label">User Email <span id="emailErr" style="color: red; display: none;">Please give valid email</span></label>
-                <input type="email" class="form-control" id="email" name="email" value="<%= email %>">
+                <input type="email" class="form-control" id="email" name="email" value="<%= email %>" autocomplete="on">
                 <div class="invalid-feedback">
                     Please enter a valid email address for your contact.
                 </div>

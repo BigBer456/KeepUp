@@ -564,31 +564,46 @@ document.getElementById('submitPasswordBtn').addEventListener('click', async fun
 
     // Function to add a comment
     function addComment() {
-        const commentText = document.getElementById('commentInput').value;
-        // AJAX request to send comment to the server
-        fetch('/save-comment', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                projectName: '<%= projectName %>',
-                commentText: commentText
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Refresh the comments after adding a new comment
-                loadComments();
-                // Clear the input field
-                document.getElementById('commentInput').value = '';
-            } else {
-                console.error('Failed to add comment');
-            }
-        })
-        .catch(error => console.error('Error:', error));
+    const commentText = document.getElementById('commentInput').value.trim();
+
+    // Assuming projectName is dynamically retrieved or set in your front-end
+    const projectName = document.getElementById('projectNameInput').value.trim(); // Replace with your actual method of getting projectName
+
+    // Check if comment text is not empty before sending
+    if (!commentText) {
+        console.error('Comment text cannot be empty');
+        return;
     }
+
+    // AJAX request to send comment to the server
+    fetch('/save-comment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            projectName: projectName,
+            commentText: commentText
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add comment');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            // Refresh the comments after adding a new comment
+            loadComments();
+            // Clear the input field
+            document.getElementById('commentInput').value = '';
+        } else {
+            console.error('Failed to add comment');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
 
     // Function to delete a comment
     function deleteComment(commentId) {
@@ -609,7 +624,8 @@ document.getElementById('submitPasswordBtn').addEventListener('click', async fun
 
     // Function to load comments
     function loadComments() {
-    fetch(`/comments?projectName=<%= projectName %>`)
+    const projectName = document.getElementById('projectNameInput').value.trim(); // Ensure projectName is correctly retrieved
+    fetch(`/comments?projectName=${encodeURIComponent(projectName)}`)
     .then(response => response.json())
     .then(data => {
         const commentsContainer = document.getElementById('commentsContainer');
@@ -644,11 +660,11 @@ document.getElementById('submitPasswordBtn').addEventListener('click', async fun
             commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
         });
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error fetching comments:', error));
 }
 
-    // Load comments when the page is loaded
-    window.addEventListener('load', loadComments);
+// Load comments when the page is loaded
+window.addEventListener('load', loadComments);
 </script>
 
 <!--Select Colleague-->

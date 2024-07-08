@@ -1251,15 +1251,15 @@ app.post('/save-comment', async (req, res) => {
 
 // Express route to get comments for a project
 app.get('/comments', async (req, res) => {
-    const projectName = req.query.projectName;
-    try {
-        // Retrieve comments for the specified project from the database
-        const result = await db.query('SELECT * FROM comments WHERE project_name = $1', [projectName]);
-        res.json({ comments: result.rows });
-    } catch (error) {
-        console.error('Error fetching comments:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+  const projectName = req.query.projectName;
+  try {
+      // Retrieve comments for the specified project from the database
+      const result = await db.query('SELECT * FROM comments WHERE project_name = $1', [projectName]);
+      res.json({ comments: result.rows });
+  } catch (error) {
+      console.error('Error fetching comments:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 //Deleting the Comment

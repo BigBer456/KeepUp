@@ -53,7 +53,7 @@
         <tbody>
             <% for(let project of listProjects){%>
             <tr>
-                <td><a href="/Logged-In/viewproject?projectName=<%= project.project_name %>"><%= project.project_name %></a></td>
+                <td><a href="/Logged-In/viewproject?projectName=<%= encodeURIComponent(project.project_name) %>"><%= project.project_name %></a></td>
                 <td><%= project.drn %> <%= project.stc %> <%= project.drv %></td>
                 <td><%= project.contractor_email %></td>
                 <td><%= project.checked_percentage %>%</td>

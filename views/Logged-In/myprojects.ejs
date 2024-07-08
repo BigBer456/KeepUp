@@ -38,7 +38,7 @@
                     </div>
                     <strong style="color: black;">(Click on a Project to edit)</strong>
                     <% if (projectNotFound) { %>
-                      <strong id="projectNotFoundSpan" style="color: red; margin-left: 2rem;">Error Deleting Project</strong>
+                      <strong id="projectNotFoundSpan" style="color: red; margin-left: 2rem;">Error Selecting Project</strong>
                     <% } %>
                     <% if (incorrectPassword) { %>
                       <strong id="incorrectPasswordSpan" style="color: red; margin-left: 2rem;">Incorrect Password (Project Not Deleted)</strong>
@@ -67,7 +67,7 @@
                     <% for(let project of listProjects){ %>
                     <tr>
                         <!-- Inside the loop where project details are displayed -->
-                        <td><a href="/Logged-In/editproject?projectName=<%= project.project_name %>"><%= project.project_name %></a></td>
+                        <td><a href="/Logged-In/editproject?projectName=<%= encodeURIComponent(project.project_name) %>"><%= project.project_name %></a></td>
                         <td><%= project.drn %> <%= project.stc %> <%= project.drv %></td>
                         <td><%= project.contractor_email %></td>
                         <td><%= project.checked_percentage %>%</td>
@@ -251,12 +251,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Call the hideSpanWithFade function for each span if it is displayed
-  <% if (projectNotFound) { %> 
+  `<% if (projectNotFound) { %>`
     hideSpanWithFade("projectNotFoundSpan");
-  <% } %> 
-  <% if (incorrectPassword) { %>
+  `<% } %>`
+  `<% if (incorrectPassword) { %>`
     hideSpanWithFade("incorrectPasswordSpan");
-  <% } %>
+  `<% } %>`
 </script>
 
 <!-- Bootstrap core JavaScript-->

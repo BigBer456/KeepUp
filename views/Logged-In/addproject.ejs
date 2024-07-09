@@ -407,7 +407,7 @@
 <h5>Contractor Contact</h5>
 
 <div class="form-checkA" id="checklist-item-1">
-  <input type="checkbox" class="form-check-input" id="a1" name="a1">
+  <input type="checkbox" class="form-check-input" id="checklist-1" name="a1">
   <label class="form-check-label" for="a1">Has the informational email been sent to the contractor?</label>
 </div>
 
@@ -829,6 +829,52 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<!--Auto Contact JS-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const submitButton = document.getElementById('submitButton');
+      const checkbox = document.getElementById('checklist-1');
+    
+      submitButton.addEventListener('click', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    
+        // Conditions from Err Message JS
+        const pNameValue = document.getElementById('pName').value.trim();
+        const emailValue = document.getElementById('email').value.trim();
+        const COSDValue = document.getElementById('COSD').value.trim();
+    
+        // Check if all conditions are met
+        if (pNameValue !== '' && validateEmail(emailValue) && validateDateFormat(COSDValue)) {
+          // All conditions met, proceed with Auto Contact JS logic
+          if (!checkbox.checked) {
+            // Show a confirmation dialog
+            const confirmed = confirm("Is this a new close-out? Would you like an automated email for the initial contact to be sent to the contractor?");
+    
+            // If the user confirms, redirect to contactemail page
+            if (confirmed) {
+              // Set the 'confirmed' parameter to true
+              const input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = 'confirmed';
+              input.value = 'true';
+              submitButton.closest('form').appendChild(input);
+    
+              // Submit the form
+              submitButton.closest('form').submit();
+            } else {
+              // If the user cancels, allow the form submission
+              submitButton.closest('form').submit();
+            }
+          } else {
+            // If the checkbox is checked, allow the form submission
+            submitButton.closest('form').submit();
+          }
+        }
+      });
+    });
+    </script>
+
 <!--Err Message JS-->
 <script>
 
@@ -919,52 +965,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   </script>
-
-<!--Auto Contact JS-->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const submitButton = document.getElementById('submitButton');
-  const checkbox = document.getElementById('checklist-1');
-
-  submitButton.addEventListener('click', function(event) {
-    // Prevent the default form submission behavior
-    event.preventDefault();
-
-    // Conditions from Err Message JS
-    const pNameValue = document.getElementById('pName').value.trim();
-    const emailValue = document.getElementById('email').value.trim();
-    const COSDValue = document.getElementById('COSD').value.trim();
-
-    // Check if all conditions are met
-    if (pNameValue !== '' && validateEmail(emailValue) && validateDateFormat(COSDValue)) {
-      // All conditions met, proceed with Auto Contact JS logic
-      if (!checkbox.checked) {
-        // Show a confirmation dialog
-        const confirmed = confirm("Is this a new close-out? Would you like an automated email for the initial contact to be sent to the contractor?");
-
-        // If the user confirms, redirect to contactemail page
-        if (confirmed) {
-          // Set the 'confirmed' parameter to true
-          const input = document.createElement('input');
-          input.type = 'hidden';
-          input.name = 'confirmed';
-          input.value = 'true';
-          submitButton.closest('form').appendChild(input);
-
-          // Submit the form
-          submitButton.closest('form').submit();
-        } else {
-          // If the user cancels, allow the form submission
-          submitButton.closest('form').submit();
-        }
-      } else {
-        // If the checkbox is checked, allow the form submission
-        submitButton.closest('form').submit();
-      }
-    }
-  });
-});
-</script>
  
 
 <!-- Bootstrap core JavaScript-->
